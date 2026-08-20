@@ -1,0 +1,64 @@
+﻿namespace Yugi_Poc_GameShop.PoCTools
+{
+    public enum CardAttribute
+    {
+        Divine,
+        Light,
+        Dark,
+        Water,
+        Fire,
+        Earth,
+        Wind,
+        Spell,
+        Trap,
+        Unkown
+    }
+    public enum CardType
+    {
+        Dragon,
+        Zombie,
+        Fiend,
+        Pyro,
+        SeaSerpent,
+        Rock,
+        Machine,
+        Fish,
+        Dinosaur,
+        Insect,
+        Beast,
+        BeastWarrior,
+        Plant,
+        Aqua,
+        Warrior,
+        WingedBeast,
+        Fairy,
+        SpellCaster,
+        Thunder,
+        Reptile,
+        Trap,
+        Spell,
+        Divine,
+        Unkown
+    }
+    public enum CardSubType
+    {
+        Normal,
+        Effect,
+        Fusion,
+        Ritual,
+        Spell,
+        Trap,
+        Unkown
+    }
+    public enum SpellTrapType
+    {
+        Normal,
+        Counter,
+        Field,
+        Equip,
+        Continuous,
+        Quickplay,
+        Ritual,
+        Unkown
+    }
+}
