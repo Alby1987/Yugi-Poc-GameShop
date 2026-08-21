@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yu-Gi-Oh! Power of Chaos: Solomon the Shopkeeper</title>
+    <style>
+        :root {
+            --bg-color: #0f111a;
+            --card-bg: #1a1d29;
+            --accent-gold: #f39c12;
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a5b5;
+            --border-color: #2e344a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            max-width: 520px;
+            width: 100%;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+        }
+
+        .description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+            margin-bottom: 30px;
+            text-align: left;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-gold);
+        }
+
+        .btn-download {
+            display: inline-block;
+            width: 100%;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
+        }
+
+        .btn-download:hover {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(243, 156, 18, 0.4);
+        }
+
+        .version-tag {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-links {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+        }
+
+        .footer-links a {
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="preview.png" alt="Yu-Gi-Oh! Power of Chaos: Solomon the Shopkeeper" class="hero-img" onerror="this.style.display='none'">
+
+        <h1>Solomon the Shopkeeper</h1>
+        <div class="subtitle">Yu-Gi-Oh! Power of Chaos Tool</div>
+
+        <div class="description">
+            Enhance your <i>Yu-Gi-Oh! Power of Chaos</i> experience! Manage your card collection, exchange cards, and unlock booster packs through an interactive shop system.
+        </div>
+
+        <a href="https://github.com/Alby1987/Yugi-Poc-GameShop/releases/download/v0.0.0.2/Yugi-Poc-GameShop-0.0.0.2.zip" class="btn-download">
+            Download Latest Release
+        </a>
+
+        <div class="version-tag">Version 0.0.0.2 (.ZIP)</div>
+
+        <div class="footer-links">
+            <a href="https://github.com/Alby1987/Yugi-Poc-GameShop" target="_blank">View Project on GitHub</a>
+        </div>
+    </div>
+
+</body>
+</html>
