@@ -242,18 +242,41 @@ namespace Yugi_Poc_GameShop
 
         internal void UpdateTokens()
         {
-            var now = DateTime.Now;
-            var save = _internalSave.LastSave;
-            var difference = (int)(now - save).TotalDays;
-            if (difference > 0)
+            var now = DateTime.UtcNow;
+            var lastGen = _internalSave.LastSave;
+
+            if (lastGen > now)
             {
-                _internalSave.Tokens += difference;
-                if (_internalSave.Tokens > 2)
+                _internalSave.LastSave = now;
+                SaveSettings();
+                return;
+            }
+
+            if (_internalSave.Tokens >= 2)
+            {
+                _internalSave.Tokens = 2;
+                _internalSave.LastSave = now;
+                SaveSettings();
+                return;
+            }
+
+            TimeSpan elapsed = now - lastGen;
+            int tokensToAdd = (int)(elapsed.TotalHours / 24);
+
+            if (tokensToAdd > 0)
+            {
+                _internalSave.Tokens += tokensToAdd;
+
+                if (_internalSave.Tokens >= 2)
                 {
                     _internalSave.Tokens = 2;
+                    _internalSave.LastSave = now;
+                }
+                else
+                {
+                    _internalSave.LastSave = lastGen.AddHours(tokensToAdd * 24);
                 }
 
-                _internalSave.LastSave = now;
                 SaveSettings();
             }
         }
@@ -265,20 +288,42 @@ namespace Yugi_Poc_GameShop
 
         internal string GetTokenCountdown()
         {
-            var now = DateTime.Now;
-            var save = _internalSave.LastSave;
-            var difference = save.AddDays(1) - now;
-            return string.Format("{0:D2}:{1:D2}", (int)difference.TotalHours, difference.Minutes);
+            if (_internalSave.Tokens >= 2)
+            {
+                return "MAX";
+            }
+
+            var now = DateTime.UtcNow;
+            var nextTokenTime = _internalSave.LastSave.AddHours(24);
+            var difference = nextTokenTime - now;
+
+            if (difference <= TimeSpan.Zero)
+            {
+                return "00:00";
+            }
+
+            int hours = (int)difference.TotalHours;
+            int minutes = difference.Minutes;
+            int seconds = difference.Seconds;
+
+            return string.Format("{0:D2}:{1:D2}:{2:D2}", hours, minutes, seconds);
         }
 
         internal void ConsumeTokens()
         {
-            _internalSave.Tokens--;
-            if (_internalSave.Tokens < 0)
+            UpdateTokens();
+
+            if (_internalSave.Tokens <= 0)
             {
-                _internalSave.Tokens = 0;
+                return;
             }
 
+            if (_internalSave.Tokens == 2)
+            {
+                _internalSave.LastSave = DateTime.UtcNow;
+            }
+
+            _internalSave.Tokens--;
             SaveSettings();
         }
 
