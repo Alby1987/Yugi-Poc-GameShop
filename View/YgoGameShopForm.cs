@@ -23,11 +23,11 @@ namespace Yugi_Poc_GameShop
             {
                 Dock = DockStyle.Fill
             };
-            _controls[2] = new TraderChoiceCardsControl(this, context, images, false)
+            _controls[2] = new TraderChoiceCardsControl(this, context, images, true)
             {
                 Dock = DockStyle.Fill
             };
-            _controls[3] = new TraderChoiceCardsControl(this, context, images, true)
+            _controls[3] = new TraderChoiceCardsControl(this, context, images, false)
             {
                 Dock = DockStyle.Fill
             };

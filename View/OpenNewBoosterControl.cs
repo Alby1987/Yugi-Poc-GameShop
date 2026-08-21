@@ -1,4 +1,5 @@
 ﻿using System;
+using Yugi_Poc_GameShop.Helpers;
 using Yugi_Poc_GameShop.Model;
 using Yugi_Poc_GameShop.PoCTools;
 
@@ -10,6 +11,9 @@ namespace Yugi_Poc_GameShop.View
         private readonly Context _context;
         private readonly bool _onlyNew;
         private readonly Images _images;
+        private readonly CardFlipper _leftCardFlipper;
+        private readonly CardFlipper _centerCardFlipper;
+        private readonly CardFlipper _rightCardFlipper;
 
         public OpenNewBoosterControl(YgoGameShopForm form, Context context, Images images, bool onlyNew)
         {
@@ -18,6 +22,9 @@ namespace Yugi_Poc_GameShop.View
             _context = context;
             _onlyNew = onlyNew;
             _images = images;
+            _leftCardFlipper = new CardFlipper(LeftPictureBox);
+            _centerCardFlipper = new CardFlipper(CenterPictureBox);
+            _rightCardFlipper = new CardFlipper(RightPictureBox);
             Reset();
         }
 
@@ -69,11 +76,13 @@ namespace Yugi_Poc_GameShop.View
                 _context.AddOne(newCard);
                 _context.Apply();
                 LeftPictureBox.Image = null;
-                CenterPictureBox.Image = _images.ImageCache[card.ImageName];
                 RightPictureBox.Image = null;
                 LeftRichTextBox.Clear();
-                SetText(CenterRichTextBox, card, true);
                 RightRichTextBox.Clear();
+                _centerCardFlipper.RevealCard(_images.ImageCache[_images.Unknown], _images.ImageCache[card.ImageName], () =>
+                {
+                    SetText(CenterRichTextBox, card, true);
+                });
                 return;
             }
 
@@ -99,12 +108,18 @@ namespace Yugi_Poc_GameShop.View
             }
 
             _context.Apply();
-            LeftPictureBox.Image = _images.ImageCache[cards[0]?.ImageName ?? _images.Unknown];
-            CenterPictureBox.Image = _images.ImageCache[cards[1]?.ImageName ?? _images.Unknown];
-            RightPictureBox.Image = _images.ImageCache[cards[2]?.ImageName ?? _images.Unknown];
-            SetText(LeftRichTextBox, cards[0], newCards[0]);
-            SetText(CenterRichTextBox, cards[1], newCards[1]);
-            SetText(RightRichTextBox, cards[2], newCards[2]);
+            _leftCardFlipper.RevealCard(_images.ImageCache[_images.Unknown], _images.ImageCache[cards[0]?.ImageName ?? _images.Unknown], () =>
+            {
+                SetText(LeftRichTextBox, cards[0], newCards[0]);
+            });
+            _centerCardFlipper.RevealCard(_images.ImageCache[_images.Unknown], _images.ImageCache[cards[1]?.ImageName ?? _images.Unknown], () =>
+            {
+                SetText(CenterRichTextBox, cards[1], newCards[1]);
+            });
+            _rightCardFlipper.RevealCard(_images.ImageCache[_images.Unknown], _images.ImageCache[cards[2]?.ImageName ?? _images.Unknown], () =>
+            {
+                SetText(RightRichTextBox, cards[2], newCards[2]);
+            });
         }
 
         private void MenuButton_Click(object sender, EventArgs e)

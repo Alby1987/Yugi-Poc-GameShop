@@ -33,6 +33,9 @@
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\Context.cs" />
+    <Compile Include="Helpers\CardFlipper.cs" />
     <Compile Include="Model\CardFilter.cs" />
     <Compile Include="Model\Images.cs" />
     <Compile Include="Model\Paths.cs" />

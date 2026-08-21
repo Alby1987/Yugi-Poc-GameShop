@@ -26,16 +26,16 @@ namespace Yugi_Poc_GameShop
 
             var paths = StartChecks.CheckData();
             
-            var context = new Context(paths.LibraryDir, paths.CommonDir, CardFilter.All);
+            var context = new Context(paths.LibraryDir, paths.CommonDir, paths.InstalledGames);
             var images = new Images(context);
             
             var ygoForm = new YgoGameShopForm(context, images);
             ygoForm.Shown += (s, e) =>
             {
-                CloseSplash();
                 ygoForm.WindowState = FormWindowState.Normal;
                 ygoForm.Activate();
                 ygoForm.BringToFront();
+                CloseSplash();
             };
 
             Application.Run(ygoForm);
