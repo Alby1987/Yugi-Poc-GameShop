@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set di attributi. Modificare i valori di questi attributi per modificare le informazioni
 // associate a un assembly.
 [assembly: AssemblyTitle("Yu-gi-oh! Power of Chaos: Solomon the Shopkeeper")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A software for improving your Power of Chaos experience")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Alby87")]
 [assembly: AssemblyProduct("Yugi-Poc-GameShop")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyCopyright("2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -28,5 +28,5 @@ using System.Runtime.InteropServices;
 //      Numero di build
 //      Revisione
 //
-[assembly: AssemblyVersion("0.0.0.2")]
-[assembly: AssemblyFileVersion("0.0.0.2")]
+[assembly: AssemblyVersion("0.0.0.3")]
+[assembly: AssemblyFileVersion("0.0.0.3")]

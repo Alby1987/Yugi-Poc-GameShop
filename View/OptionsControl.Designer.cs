@@ -49,28 +49,29 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.MenuButton, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.OkButton, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.TokensLabel, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.TokensCountdownLabel, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.InstalledGamesLabel, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.LanguagesComboBox, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label8, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label9, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.MenuButton, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.OkButton, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.TokensLabel, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.TokensCountdownLabel, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.InstalledGamesLabel, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.LanguagesComboBox, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label8, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label9, 1, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 90F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 83.33334F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 600);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -100,9 +101,9 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label2.Location = new System.Drawing.Point(306, 0);
+            this.label2.Location = new System.Drawing.Point(306, 30);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(91, 60);
+            this.label2.Size = new System.Drawing.Size(91, 30);
             this.label2.TabIndex = 4;
             this.label2.Text = "Tokens available:";
             // 
@@ -110,9 +111,9 @@
             // 
             this.TokensLabel.AutoSize = true;
             this.TokensLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.TokensLabel.Location = new System.Drawing.Point(403, 0);
+            this.TokensLabel.Location = new System.Drawing.Point(403, 30);
             this.TokensLabel.Name = "TokensLabel";
-            this.TokensLabel.Size = new System.Drawing.Size(13, 60);
+            this.TokensLabel.Size = new System.Drawing.Size(13, 30);
             this.TokensLabel.TabIndex = 5;
             this.TokensLabel.Text = "0";
             // 
@@ -122,7 +123,7 @@
             this.label4.Dock = System.Windows.Forms.DockStyle.Right;
             this.label4.Location = new System.Drawing.Point(263, 60);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(134, 60);
+            this.label4.Size = new System.Drawing.Size(134, 30);
             this.label4.TabIndex = 6;
             this.label4.Text = "Next token will be given in:";
             // 
@@ -132,7 +133,7 @@
             this.TokensCountdownLabel.Dock = System.Windows.Forms.DockStyle.Left;
             this.TokensCountdownLabel.Location = new System.Drawing.Point(403, 60);
             this.TokensCountdownLabel.Name = "TokensCountdownLabel";
-            this.TokensCountdownLabel.Size = new System.Drawing.Size(34, 60);
+            this.TokensCountdownLabel.Size = new System.Drawing.Size(34, 30);
             this.TokensCountdownLabel.TabIndex = 7;
             this.TokensCountdownLabel.Text = "00:00";
             // 
@@ -140,9 +141,9 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label6.Location = new System.Drawing.Point(299, 120);
+            this.label6.Location = new System.Drawing.Point(299, 90);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(98, 60);
+            this.label6.Size = new System.Drawing.Size(98, 90);
             this.label6.TabIndex = 8;
             this.label6.Text = "Games recognized:";
             // 
@@ -150,9 +151,9 @@
             // 
             this.InstalledGamesLabel.AutoSize = true;
             this.InstalledGamesLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.InstalledGamesLabel.Location = new System.Drawing.Point(403, 120);
+            this.InstalledGamesLabel.Location = new System.Drawing.Point(403, 90);
             this.InstalledGamesLabel.Name = "InstalledGamesLabel";
-            this.InstalledGamesLabel.Size = new System.Drawing.Size(45, 60);
+            this.InstalledGamesLabel.Size = new System.Drawing.Size(45, 90);
             this.InstalledGamesLabel.TabIndex = 9;
             this.InstalledGamesLabel.Text = "Loading";
             // 

@@ -82,9 +82,9 @@ namespace Yugi_Poc_GameShop.PoCTools.Library
                 while (!idReader.BaseStream.Position.Equals(idReader.BaseStream.Length))
                 {
                     ushort id = idReader.ReadUInt16();
-                    string name = Encoding.UTF8.GetString(nameReader.ReadBytes(64)).TrimEnd('\0');
+                    string name = Encoding.GetEncoding(1252).GetString(nameReader.ReadBytes(64)).TrimEnd('\0');
                     uint nextIdx = idxReader.BaseStream.Position.Equals(idxReader.BaseStream.Length) ? (uint)descReader.BaseStream.Length - 1 : idxReader.ReadUInt32();
-                    string desc = nextIdx > descReader.BaseStream.Position ? Encoding.UTF8.GetString(descReader.ReadBytes((int)(nextIdx - descReader.BaseStream.Position))).TrimEnd('\0') : "";
+                    string desc = nextIdx > descReader.BaseStream.Position ? Encoding.GetEncoding(1252).GetString(descReader.ReadBytes((int)(nextIdx - descReader.BaseStream.Position))).TrimEnd('\0') : "";
                     uint prop = propReader.ReadUInt32();
                     ushort ver = packReader.ReadUInt16();
 

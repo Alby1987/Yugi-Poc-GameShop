@@ -24,7 +24,7 @@
         
         public override string ToString()
         {
-            return (Yugi ? "Yugi" : "") + " " + (Kaiba ? "Kaiba" : "") + " " + (Joey ? "Joey" : "");
+            return (Yugi ? "Yugi the Destiny\n" : string.Empty) + (Kaiba ? "Kaiba the Revenge\n" : string.Empty) + (Joey ? "Joey the Passion" : string.Empty);
         }
     }
 }
