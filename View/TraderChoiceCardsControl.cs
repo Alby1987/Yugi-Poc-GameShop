@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Yugi_Poc_GameShop.Model;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Yugi_Poc_GameShop.View
 {

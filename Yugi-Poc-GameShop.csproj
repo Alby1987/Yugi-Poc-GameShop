@@ -48,12 +48,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\Chatter.cs" />
     <Compile Include="Controller\Context.cs" />
     <Compile Include="Helpers\CardFlipper.cs" />
     <Compile Include="Model\CardFilter.cs" />
+    <Compile Include="Model\ChatterState.cs" />
     <Compile Include="Model\Images.cs" />
     <Compile Include="Model\Paths.cs" />
     <Compile Include="Controller\StartChecks.cs" />
+    <Compile Include="View\ChatterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\ChatterControl.Designer.cs">
+      <DependentUpon>ChatterControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\SplashScreenForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +111,9 @@
     <Compile Include="View\OpenNewBoosterControl.Designer.cs">
       <DependentUpon>OpenNewBoosterControl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\ChatterControl.resx">
+      <DependentUpon>ChatterControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\SplashScreenForm.resx">
       <DependentUpon>SplashScreenForm.cs</DependentUpon>
     </EmbeddedResource>

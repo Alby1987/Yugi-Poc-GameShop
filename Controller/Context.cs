@@ -355,6 +355,16 @@ namespace Yugi_Poc_GameShop
             _toRemove.Add(index);
         }
 
+        internal ChatterState GetChatterState()
+        {
+            return _internalSave.ChatterState;
+        }
+
+        internal void SetChatterState(ChatterState chatterState)
+        {
+            _internalSave.ChatterState = chatterState;
+        }
+
         private void AddOneEffective(int index)
         {
             if (_playersCards[index] == 255)

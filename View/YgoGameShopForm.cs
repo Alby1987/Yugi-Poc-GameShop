@@ -14,7 +14,7 @@ namespace Yugi_Poc_GameShop
             context.LoadLibrary();
             context.LoadGameSave();
             images.LoadImages();
-            _controls = new YgoControl[6];
+            _controls = new YgoControl[7];
             _controls[0] = new MenuControl(this, context)
             {
                 Dock = DockStyle.Fill
@@ -39,12 +39,20 @@ namespace Yugi_Poc_GameShop
             {
                 Dock = DockStyle.Fill
             };
+            _controls[6] = new ChatterControl(this, context)
+            {
+                Dock = DockStyle.Fill
+            };
 
-            Controls.Clear();
-            Controls.Add(_controls[0]);
+            OpenChatter(false);
         }
 
         internal void BackMenu()
+        {
+            OpenChatter(true);
+        }
+
+        internal void BackMenuChatter()
         {
             _controls[0].Reset();
             Controls.Clear();
@@ -84,6 +92,14 @@ namespace Yugi_Poc_GameShop
             _controls[5].Reset();
             Controls.Clear();
             Controls.Add(_controls[5]);
+        }
+
+        internal void OpenChatter(bool justUpdate)
+        {
+            _controls[6].Reset();
+            Controls.Clear();
+            Controls.Add(_controls[6]);
+            ((ChatterControl)_controls[6]).GetChatter(justUpdate);
         }
     }
 }
