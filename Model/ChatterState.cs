@@ -12,6 +12,7 @@
         public int KaibaTotalCards { get; set; } = 0;
         public int JoeyTotalCards { get; set; } = 0;
         public ushort SpeechState { get; set; } = 0;
+        public ushort MilestonesState { get; set; } = 0;
     }
 
     internal class PhrasesState

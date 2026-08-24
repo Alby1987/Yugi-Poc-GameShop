@@ -64,6 +64,7 @@ namespace Yugi_Poc_GameShop.Controller
 
         private static readonly string FirstPhrase = "Welcome to my shop, young Duelist! I see the passion in your eyes.\n" +
             "Take your time, build your deck, and let the Heart of the Cards guide your way!";
+        private static readonly string AlmostCompleted = "Incredible! You've completely mastered two out of the three legendary card sets! You are so close to true perfection!";
         private static readonly string CompletedPhrase = "Unbelievable... 771 cards! You have gathered every single card in existence!\n" +
             "You are no longer just a collector; you are a true Grandmaster of Duel Monsters.\n" +
             "My shop is deeply honored to have served you on this legendary journey!";
@@ -96,6 +97,7 @@ namespace Yugi_Poc_GameShop.Controller
             var joeyTotalSaveCards = ownedCardsList.Where(x => joeyHashSet.Contains(x.Key)).Sum(x => x.Value);
             var chatterState = context.GetChatterState();
             var phrasesState = UnpackPhrasesState(chatterState.SpeechState);
+            var milestonesState = UnpackPhrasesState(chatterState.MilestonesState);
             if (chatterState.YugiCards == 0 &&
                 chatterState.KaibaCards == 0 &&
                 chatterState.JoeyCards == 0)
@@ -117,25 +119,42 @@ namespace Yugi_Poc_GameShop.Controller
                     {
                         toReturn.Add(YugiCardsPhrases[5]);
                     }
-                    else if (yugiSaveCards > 149)
+                    else if (yugiSaveCards > 149 && !milestonesState.YugiPhrases[4])
                     {
                         toReturn.Add(YugiCardsPhrases[4]);
+                        for (int i = 0; i < 5; i++)
+                        {
+                            milestonesState.YugiPhrases[i] = true;
+                        }
                     }
-                    else if (yugiSaveCards > 134)
+                    else if (yugiSaveCards > 134 && !milestonesState.YugiPhrases[3])
                     {
                         toReturn.Add(YugiCardsPhrases[3]);
+                        for (int i = 0; i < 4; i++)
+                        {
+                            milestonesState.YugiPhrases[i] = true;
+                        }
                     }
-                    else if (yugiSaveCards > 109)
+                    else if (yugiSaveCards > 109 && !milestonesState.YugiPhrases[2])
                     {
                         toReturn.Add(YugiCardsPhrases[2]);
+                        for (int i = 0; i < 3; i++)
+                        {
+                            milestonesState.YugiPhrases[i] = true;
+                        }
                     }
-                    else if (yugiSaveCards > 79)
+                    else if (yugiSaveCards > 79 && !milestonesState.YugiPhrases[1])
                     {
                         toReturn.Add(YugiCardsPhrases[1]);
+                        for (int i = 0; i < 2; i++)
+                        {
+                            milestonesState.YugiPhrases[i] = true;
+                        }
                     }
-                    else if (yugiSaveCards > 49)
+                    else if (yugiSaveCards > 49 && !milestonesState.YugiPhrases[0])
                     {
                         toReturn.Add(YugiCardsPhrases[0]);
+                        milestonesState.YugiPhrases[0] = true;
                     }
 
                     chatterState.YugiCards = yugiSaveCards;
@@ -147,25 +166,42 @@ namespace Yugi_Poc_GameShop.Controller
                     {
                         toReturn.Add(KaibaCardsPhrases[5]);
                     }
-                    else if (kaibaSaveCards > 304)
+                    else if (kaibaSaveCards > 304 && !milestonesState.KaibaPhrases[4])
                     {
                         toReturn.Add(KaibaCardsPhrases[4]);
+                        for (int i = 0; i < 5; i++)
+                        {
+                            milestonesState.KaibaPhrases[i] = true;
+                        }
                     }
-                    else if (kaibaSaveCards > 274)
+                    else if (kaibaSaveCards > 274 && !milestonesState.KaibaPhrases[3])
                     {
                         toReturn.Add(KaibaCardsPhrases[3]);
+                        for (int i = 0; i < 4; i++)
+                        {
+                            milestonesState.KaibaPhrases[i] = true;
+                        }
                     }
-                    else if (kaibaSaveCards > 219)
+                    else if (kaibaSaveCards > 219 && !milestonesState.KaibaPhrases[2])
                     {
                         toReturn.Add(KaibaCardsPhrases[2]);
+                        for (int i = 0; i < 3; i++)
+                        {
+                            milestonesState.KaibaPhrases[i] = true;
+                        }
                     }
-                    else if (kaibaSaveCards > 159)
+                    else if (kaibaSaveCards > 159 && !milestonesState.KaibaPhrases[1])
                     {
                         toReturn.Add(KaibaCardsPhrases[1]);
+                        for (int i = 0; i < 2; i++)
+                        {
+                            milestonesState.KaibaPhrases[i] = true;
+                        }
                     }
-                    else if (kaibaSaveCards > 79)
+                    else if (kaibaSaveCards > 79 && !milestonesState.KaibaPhrases[0])
                     {
                         toReturn.Add(KaibaCardsPhrases[0]);
+                        milestonesState.KaibaPhrases[0] = true;
                     }
 
                     chatterState.KaibaCards = kaibaSaveCards;
@@ -177,25 +213,42 @@ namespace Yugi_Poc_GameShop.Controller
                     {
                         toReturn.Add(JoeyCardsPhrases[5]);
                     }
-                    else if (joeySaveCards > 339)
+                    else if (joeySaveCards > 339 && !milestonesState.JoeyPhrases[4])
                     {
                         toReturn.Add(JoeyCardsPhrases[4]);
+                        for (int i = 0; i < 5; i++)
+                        {
+                            milestonesState.JoeyPhrases[i] = true;
+                        }
                     }
-                    else if (joeySaveCards > 304)
+                    else if (joeySaveCards > 304 && !milestonesState.JoeyPhrases[3])
                     {
                         toReturn.Add(JoeyCardsPhrases[3]);
+                        for (int i = 0; i < 4; i++)
+                        {
+                            milestonesState.JoeyPhrases[i] = true;
+                        }
                     }
-                    else if (joeySaveCards > 244)
+                    else if (joeySaveCards > 244 && !milestonesState.JoeyPhrases[2])
                     {
                         toReturn.Add(JoeyCardsPhrases[2]);
+                        for (int i = 0; i < 3; i++)
+                        {
+                            milestonesState.JoeyPhrases[i] = true;
+                        }
                     }
-                    else if (joeySaveCards > 174)
+                    else if (joeySaveCards > 174 && !milestonesState.JoeyPhrases[1])
                     {
                         toReturn.Add(JoeyCardsPhrases[1]);
+                        for (int i = 0; i < 2; i++)
+                        {
+                            milestonesState.JoeyPhrases[i] = true;
+                        }
                     }
-                    else if (joeySaveCards > 89)
+                    else if (joeySaveCards > 89 && !milestonesState.JoeyPhrases[0])
                     {
                         toReturn.Add(JoeyCardsPhrases[0]);
+                        milestonesState.JoeyPhrases[0] = true;
                     }
 
                     chatterState.JoeyCards = joeySaveCards;
@@ -233,16 +286,27 @@ namespace Yugi_Poc_GameShop.Controller
                 chatterState.JoeyCardsToWin = 25;
             }
 
-            if (yugiSaveCards == yugiCards.Count() &&
-                kaibaSaveCards == kaibaCards.Count() &&
-                joeySaveCards == joeyCards.Count() &&
+            var yugiDone = yugiSaveCards == yugiCards.Count();
+            var kaibaDone = kaibaSaveCards == kaibaCards.Count();
+            var joeyDone = joeySaveCards == joeyCards.Count();
+
+            if (yugiDone &&
+                kaibaDone &&
+                joeyDone &&
                 !phrasesState.Completed)
             {
                 toReturn.Add(CompletedPhrase);
                 phrasesState.Completed = true;
+                milestonesState.Completed = true;
+            }
+            else if (((yugiDone && kaibaDone) || (yugiDone && joeyDone) || (kaibaDone && joeyDone)) && !milestonesState.Completed)
+            {
+                toReturn.Add(AlmostCompleted);
+                milestonesState.Completed = true;
             }
 
             chatterState.SpeechState = PackPhrasesState(phrasesState);
+            chatterState.MilestonesState = PackPhrasesState(milestonesState);
             context.SetChatterState(chatterState);
 
             if (!first && toReturn.Count > 0)
