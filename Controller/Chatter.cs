@@ -245,10 +245,9 @@ namespace Yugi_Poc_GameShop.Controller
             chatterState.SpeechState = PackPhrasesState(phrasesState);
             context.SetChatterState(chatterState);
 
-            toReturn = toReturn.Where(x => !string.IsNullOrEmpty(x)).ToList();
             if (!first && toReturn.Count > 0)
             {
-                toReturn.Insert(0, GreetingPhrases[_random.Next(5)]);
+                toReturn.Insert(0, GreetingPhrases[_random.Next(GreetingPhrases.Length)]);
             }
 
             return toReturn.ToArray();
