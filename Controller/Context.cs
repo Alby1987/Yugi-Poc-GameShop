@@ -149,7 +149,7 @@ namespace Yugi_Poc_GameShop
 
         internal int GetRandomNewCard(CardFilter cardFilter)
         {
-            var filter = GetCardListIndex(cardFilter);
+            var filter = new HashSet<int>(GetCardListIndex(cardFilter));
 
             var emptyKeys = _playersCards
                 .Where(p => filter.Contains(p.Key) && p.Value == 0)

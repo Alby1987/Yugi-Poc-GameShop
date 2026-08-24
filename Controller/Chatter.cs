@@ -31,6 +31,7 @@ namespace Yugi_Poc_GameShop.Controller
             "Joey's passion in a Duel is legendary, but you kept your cool and took the win. Well played!",
             "Ah, Joey never gives up, so expect him to ask for a rematch soon! But for now, enjoy this hard-earned victory!"
         };
+
         public static readonly string[] YugiCardsPhrases = new string[]
         {
             "Ah, you're taking your first true steps into Yugi's collection! Keep building that foundation, one card at a time.",
@@ -80,7 +81,7 @@ namespace Yugi_Poc_GameShop.Controller
         {
             var toReturn = new List<string>();
             var first = false;
-            var ownedCardsList = context.GetCardListCopy().Where(x => x.Value > 0);
+            var ownedCardsList = context.GetCardListCopy().Where(x => x.Value > 0).ToList();
             var yugiCards = context.GetCardListIndex(CardFilter.Only_Yugi);
             var kaibaCards = context.GetCardListIndex(CardFilter.Only_Kaiba);
             var joeyCards = context.GetCardListIndex(CardFilter.Only_Joey);
@@ -90,9 +91,9 @@ namespace Yugi_Poc_GameShop.Controller
             var kaibaSaveCards = ownedCardsList.Count(x => kaibaHashSet.Contains(x.Key));
             var joeyHashSet = new HashSet<int>(joeyCards);
             var joeySaveCards = ownedCardsList.Count(x => joeyHashSet.Contains(x.Key));
-            var yugiTotalSaveCards = ownedCardsList.Where(x => yugiCards.Contains(x.Key)).Sum(x => x.Value);
-            var kaibaTotalSaveCards = ownedCardsList.Where(x => kaibaCards.Contains(x.Key)).Sum(x => x.Value);
-            var joeyTotalSaveCards = ownedCardsList.Where(x => joeyCards.Contains(x.Key)).Sum(x => x.Value);
+            var yugiTotalSaveCards = ownedCardsList.Where(x => yugiHashSet.Contains(x.Key)).Sum(x => x.Value);
+            var kaibaTotalSaveCards = ownedCardsList.Where(x => kaibaHashSet.Contains(x.Key)).Sum(x => x.Value);
+            var joeyTotalSaveCards = ownedCardsList.Where(x => joeyHashSet.Contains(x.Key)).Sum(x => x.Value);
             var chatterState = context.GetChatterState();
             var phrasesState = UnpackPhrasesState(chatterState.SpeechState);
             if (chatterState.YugiCards == 0 &&
@@ -243,6 +244,8 @@ namespace Yugi_Poc_GameShop.Controller
 
             chatterState.SpeechState = PackPhrasesState(phrasesState);
             context.SetChatterState(chatterState);
+
+            toReturn = toReturn.Where(x => !string.IsNullOrEmpty(x)).ToList();
             if (!first && toReturn.Count > 0)
             {
                 toReturn.Insert(0, GreetingPhrases[_random.Next(5)]);
