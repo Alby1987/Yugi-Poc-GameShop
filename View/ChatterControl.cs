@@ -28,10 +28,7 @@ namespace Yugi_Poc_GameShop.View
         internal void GetChatter(bool justUpdate)
         {
             var phrases = Chatter.GetChat(_context, justUpdate);
-            if (phrases.Count() > 0)
-            {
-                _context.SaveSettings();
-            }
+            _context.SaveSettings();
             foreach (var chatter in phrases)
             {
                 _phrases.Enqueue(chatter);
