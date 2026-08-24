@@ -69,5 +69,10 @@ namespace Yugi_Poc_GameShop.View
         {
             Next();
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            Next();
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace Yugi_Poc_GameShop.Controller
 
         private static readonly string[] KaibaWinPhrases = new string[] {
             "You beat Kaiba again?! Haha! I can already hear his Blue-Eyes White Dragons roaring in frustration!",
-            "Wiping that arrogant smirk off Kaiba's face takes true skill. A masterpiece of a Duel!",
+            "It takes quite a Duel to wipe that confident smile off Kaiba's face! Well played!",
             "Kaiba relies on raw power and technology, but your trust in your deck proved superior today!",
             "I bet Kaiba is already calling his engineers to analyze your victory... Don't let him get to you!",
             "Taming Kaiba's ruthless aggression is something very few Duelists ever achieve. Outstanding victory!"
@@ -73,7 +73,7 @@ namespace Yugi_Poc_GameShop.Controller
             "Ah, good to see you! The Heart of the Cards must have guided you here today.",
             "Greetings! Step inside, I've been organizing some rare sets all morning.",
             "Hello there! Ready to check your progress and see what new cards you've found?",
-            "Ah, one of my favorite customer! Let me take a quick look at your card binder..."
+            "Ah, one of my favorite customers! Let me take a quick look at your card binder..."
         };
 
         public static string[] GetChat(Context context, bool justUpdate)
