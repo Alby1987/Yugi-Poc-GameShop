@@ -92,9 +92,9 @@ namespace Yugi_Poc_GameShop.Controller
             var kaibaSaveCards = ownedCardsList.Count(x => kaibaHashSet.Contains(x.Key));
             var joeyHashSet = new HashSet<int>(joeyCards);
             var joeySaveCards = ownedCardsList.Count(x => joeyHashSet.Contains(x.Key));
-            var yugiTotalSaveCards = ownedCardsList.Where(x => yugiHashSet.Contains(x.Key)).Sum(x => x.Value);
-            var kaibaTotalSaveCards = ownedCardsList.Where(x => kaibaHashSet.Contains(x.Key)).Sum(x => x.Value);
-            var joeyTotalSaveCards = ownedCardsList.Where(x => joeyHashSet.Contains(x.Key)).Sum(x => x.Value);
+            var yugiTotalSaveCards = ownedCardsList.Where(x => yugiHashSet.Contains(x.Key) && !kaibaHashSet.Contains(x.Key) && !joeyHashSet.Contains(x.Key)).Sum(x => x.Value);
+            var kaibaTotalSaveCards = ownedCardsList.Where(x => kaibaHashSet.Contains(x.Key) && !yugiHashSet.Contains(x.Key) && !joeyHashSet.Contains(x.Key)).Sum(x => x.Value);
+            var joeyTotalSaveCards = ownedCardsList.Where(x => joeyHashSet.Contains(x.Key) && !yugiHashSet.Contains(x.Key) && !kaibaHashSet.Contains(x.Key)).Sum(x => x.Value);
             var chatterState = context.GetChatterState();
             var phrasesState = UnpackPhrasesState(chatterState.SpeechState);
             var milestonesState = UnpackPhrasesState(chatterState.MilestonesState);
@@ -118,6 +118,10 @@ namespace Yugi_Poc_GameShop.Controller
                     if (yugiSaveCards > 154)
                     {
                         toReturn.Add(YugiCardsPhrases[5]);
+                        for (int i = 0; i < 6; i++)
+                        {
+                            milestonesState.YugiPhrases[i] = true;
+                        }
                     }
                     else if (yugiSaveCards > 149 && !milestonesState.YugiPhrases[4])
                     {
@@ -165,6 +169,10 @@ namespace Yugi_Poc_GameShop.Controller
                     if (kaibaSaveCards > 314)
                     {
                         toReturn.Add(KaibaCardsPhrases[5]);
+                        for (int i = 0; i < 6; i++)
+                        {
+                            milestonesState.KaibaPhrases[i] = true;
+                        }
                     }
                     else if (kaibaSaveCards > 304 && !milestonesState.KaibaPhrases[4])
                     {
@@ -212,6 +220,10 @@ namespace Yugi_Poc_GameShop.Controller
                     if (joeySaveCards > 349)
                     {
                         toReturn.Add(JoeyCardsPhrases[5]);
+                        for (int i = 0; i < 6; i++)
+                        {
+                            milestonesState.JoeyPhrases[i] = true;
+                        }
                     }
                     else if (joeySaveCards > 339 && !milestonesState.JoeyPhrases[4])
                     {
@@ -309,7 +321,7 @@ namespace Yugi_Poc_GameShop.Controller
             chatterState.MilestonesState = PackPhrasesState(milestonesState);
             context.SetChatterState(chatterState);
 
-            if (!first && toReturn.Count > 0)
+            if (!first && toReturn.Count > 0 && !justUpdate)
             {
                 toReturn.Insert(0, GreetingPhrases[_random.Next(GreetingPhrases.Length)]);
             }
