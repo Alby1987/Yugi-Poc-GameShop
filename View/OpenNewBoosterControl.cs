@@ -86,12 +86,12 @@ namespace Yugi_Poc_GameShop.View
                 return;
             }
 
-            if (_context.GetTokens() == 0)
+            if (_context.GetTokens() == 0 && _context.GetPoints() == 0)
             {
                 return;
             }
 
-            _context.ConsumeTokens();
+            _context.ConsumeTokensOrPoints();
             var cardIndexes = new int[3];
             var cards = new Card[3];
             var newCards = new bool[3];

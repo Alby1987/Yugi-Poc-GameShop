@@ -7,6 +7,7 @@ namespace Yugi_Poc_GameShop.View
         private readonly YgoGameShopForm _form;
         private readonly Context _context;
         private int _tokens;
+        private int _points;
 
         public MenuControl(YgoGameShopForm form, Context context)
         {
@@ -19,8 +20,18 @@ namespace Yugi_Poc_GameShop.View
         public override void Reset()
         {
             _tokens = _context.GetTokens();
-            OpenBoosterPackButton.Enabled = _tokens > 0;
-            OpenBoosterPackButton.Text = $"Open Booster Pack - Tokens: {_tokens}";
+            _points = _context.GetPoints();
+
+            if (_context.GetWinningDuelsExpired())
+            {
+                OpenBoosterPackButton.Enabled = false;
+                OpenBoosterPackButton.Text = $"Open Booster Pack - Tokens: {_tokens} - Points: {_points} - Win a duel to open it";
+            }
+            else
+            {
+                OpenBoosterPackButton.Enabled = _tokens > 0 || _points > 9;
+                OpenBoosterPackButton.Text = $"Open Booster Pack - Tokens: {_tokens} - Points: {_points}";
+            }
         }
 
         private void OpenBoosterPackButton_Click(object sender, EventArgs e)

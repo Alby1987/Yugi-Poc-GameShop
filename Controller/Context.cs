@@ -237,6 +237,7 @@ namespace Yugi_Poc_GameShop
 
             Reset();
             SaveGameSave();
+            UpdatePoints();
             SaveSettings();
         }
 
@@ -252,29 +253,29 @@ namespace Yugi_Poc_GameShop
                 return;
             }
 
-            if (_internalSave.Tokens >= 2)
+            if (_internalSave.Tokens >= 4)
             {
-                _internalSave.Tokens = 2;
+                _internalSave.Tokens = 4;
                 _internalSave.LastSave = now;
                 SaveSettings();
                 return;
             }
 
             TimeSpan elapsed = now - lastGen;
-            int tokensToAdd = (int)(elapsed.TotalHours / 24);
+            int tokensToAdd = (int)(elapsed.TotalHours / 12);
 
             if (tokensToAdd > 0)
             {
                 _internalSave.Tokens += tokensToAdd;
 
-                if (_internalSave.Tokens >= 2)
+                if (_internalSave.Tokens >= 4)
                 {
-                    _internalSave.Tokens = 2;
+                    _internalSave.Tokens = 4;
                     _internalSave.LastSave = now;
                 }
                 else
                 {
-                    _internalSave.LastSave = lastGen.AddHours(tokensToAdd * 24);
+                    _internalSave.LastSave = lastGen.AddHours(tokensToAdd * 12);
                 }
 
                 SaveSettings();
@@ -286,15 +287,20 @@ namespace Yugi_Poc_GameShop
             return _internalSave.Tokens;
         }
 
+        internal int GetPoints()
+        {
+            return _internalSave.Points;
+        }
+
         internal string GetTokenCountdown()
         {
-            if (_internalSave.Tokens >= 2)
+            if (_internalSave.Tokens >= 4)
             {
                 return "MAX";
             }
 
             var now = DateTime.UtcNow;
-            var nextTokenTime = _internalSave.LastSave.AddHours(24);
+            var nextTokenTime = _internalSave.LastSave.AddHours(12);
             var difference = nextTokenTime - now;
 
             if (difference <= TimeSpan.Zero)
@@ -309,16 +315,18 @@ namespace Yugi_Poc_GameShop
             return string.Format("{0:D2}:{1:D2}:{2:D2}", hours, minutes, seconds);
         }
 
-        internal void ConsumeTokens()
+        internal void ConsumeTokensOrPoints()
         {
             UpdateTokens();
+            UpdatePoints();
 
             if (_internalSave.Tokens <= 0)
             {
+                _internalSave.Points -= 10;
                 return;
             }
 
-            if (_internalSave.Tokens == 2)
+            if (_internalSave.Tokens == 4)
             {
                 _internalSave.LastSave = DateTime.UtcNow;
             }
@@ -363,6 +371,65 @@ namespace Yugi_Poc_GameShop
         internal void SetChatterState(ChatterState chatterState)
         {
             _internalSave.ChatterState = chatterState;
+        }
+
+        internal void UpdatePoints()
+        {
+            var newPoints = 0;
+            var savedCards = _internalSave.SavedCards;
+
+            if (savedCards.Length != _playersCards.Count)
+            {
+                savedCards = new byte[_playersCards.Count];
+            }
+
+            var newCardsFound = false;
+
+            foreach (var cards in _playersCards)
+            {
+                var gameSavedCard = cards.Value;
+
+                var internalSavedCard = savedCards[cards.Key];
+
+                if (gameSavedCard > internalSavedCard)
+                {
+                    newCardsFound = true;
+                    var gameSavedCardNormalized = (int)Math.Min(gameSavedCard, (byte)3);
+                    var internalSavedCardNormalized = (int)Math.Min(internalSavedCard, (byte)3);
+
+                    var cardPoints = gameSavedCardNormalized - internalSavedCardNormalized;
+
+                    if (cardPoints > 0)
+                    {
+                        if (internalSavedCardNormalized == 0)
+                        {
+                            cardPoints--;
+                        }
+
+                        newPoints += cardPoints;
+                    }
+                }
+
+                savedCards[cards.Key] = gameSavedCard;
+            }
+
+            if (newPoints > 0)
+            {
+                _internalSave.Points += newPoints;
+                _internalSave.SavedCards = savedCards;
+                _internalSave.LastCardWon = DateTime.UtcNow;
+                SaveGameSave();
+            }
+            else if (newCardsFound)
+            {
+                _internalSave.LastCardWon = DateTime.UtcNow;
+                SaveGameSave();
+            }
+        }
+
+        internal bool GetWinningDuelsExpired()
+        {
+            return _internalSave.LastCardWon.AddDays(7) < DateTime.UtcNow;
         }
 
         private void AddOneEffective(int index)

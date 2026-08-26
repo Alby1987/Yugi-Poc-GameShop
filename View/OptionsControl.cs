@@ -26,6 +26,7 @@ namespace Yugi_Poc_GameShop.View
             LanguagesComboBox.SelectedItem = _context.GetLanguage();
             TokensLabel.Text = _context.GetTokens().ToString();
             TokensCountdownLabel.Text = _context.GetTokenCountdown().ToString();
+            CardPointsLabel.Text = _context.GetPoints().ToString();
             InstalledGamesLabel.Text = _context.InstalledGames.ToString();
         }
 

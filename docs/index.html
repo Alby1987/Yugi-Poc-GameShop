@@ -35,7 +35,7 @@
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            max-width: 520px;
+            max-width: 640px;
             width: 100%;
             padding: 40px 30px;
             text-align: center;
@@ -102,6 +102,40 @@
             color: var(--text-secondary);
         }
 
+        .screenshots-section {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .screenshots-title {
+            font-size: 1.1rem;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .screenshots-grid img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .screenshots-grid img:hover {
+            transform: scale(1.04);
+            border-color: var(--accent-gold);
+        }
+
         .footer-links {
             margin-top: 30px;
             padding-top: 20px;
@@ -117,6 +151,12 @@
         .footer-links a:hover {
             text-decoration: underline;
         }
+
+        @media (max-width: 480px) {
+            .screenshots-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
     </style>
 </head>
 <body>
@@ -131,16 +171,49 @@
             Enhance your <i>Yu-Gi-Oh! Power of Chaos</i> experience! Manage your card collection, exchange cards, and unlock booster packs through an interactive shop system.
         </div>
 
-        <a href="https://github.com/Alby1987/Yugi-Poc-GameShop/releases/download/v0.0.0.2/Yugi-Poc-GameShop-0.0.0.2.zip" class="btn-download">
+        <a id="download-btn" href="https://github.com/Alby1987/Yugi-Poc-GameShop/releases/latest/download/Yugi-Poc-GameShop.zip" class="btn-download">
             Download Latest Release
         </a>
 
-        <div class="version-tag">Version 0.0.0.2 (.ZIP)</div>
+        <div id="version-tag" class="version-tag">Latest Release (Yugi-Poc-GameShop.zip)</div>
+
+        <div class="screenshots-section">
+            <div class="screenshots-title">Screenshots</div>
+            <div class="screenshots-grid">
+                <a href="1.jfif" target="_blank"><img src="1.jfif" alt="Screenshot 1" onerror="this.style.display='none'"></a>
+                <a href="2.jfif" target="_blank"><img src="2.jfif" alt="Screenshot 2" onerror="this.style.display='none'"></a>
+                <a href="3.png" target="_blank"><img src="3.png" alt="Screenshot 3" onerror="this.style.display='none'"></a>
+                <a href="4.png" target="_blank"><img src="4.png" alt="Screenshot 4" onerror="this.style.display='none'"></a>
+                <a href="5.png" target="_blank"><img src="5.png" alt="Screenshot 5" onerror="this.style.display='none'"></a>
+                <a href="6.png" target="_blank"><img src="6.png" alt="Screenshot 6" onerror="this.style.display='none'"></a>
+            </div>
+        </div>
 
         <div class="footer-links">
             <a href="https://github.com/Alby1987/Yugi-Poc-GameShop" target="_blank">View Project on GitHub</a>
         </div>
     </div>
+
+    <script>
+        async function fetchLatestRelease() {
+            const repo = "Alby1987/Yugi-Poc-GameShop";
+            const versionTag = document.getElementById("version-tag");
+
+            try {
+                const response = await fetch(`https://api.github.com/repos/${repo}/releases/latest`);
+                if (!response.ok) return;
+                
+                const data = await response.json();
+                if (data.tag_name) {
+                    versionTag.textContent = `Version ${data.tag_name} (Yugi-Poc-GameShop.zip)`;
+                }
+            } catch (error) {
+                // Fallback static text if network request is blocked
+            }
+        }
+
+        fetchLatestRelease();
+    </script>
 
 </body>
 </html>

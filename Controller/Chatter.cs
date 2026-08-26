@@ -32,7 +32,7 @@ namespace Yugi_Poc_GameShop.Controller
             "Ah, Joey never gives up, so expect him to ask for a rematch soon! But for now, enjoy this hard-earned victory!"
         };
 
-        public static readonly string[] YugiCardsPhrases = new string[]
+        private static readonly string[] YugiCardsPhrases = new string[]
         {
             "Ah, you're taking your first true steps into Yugi's collection! Keep building that foundation, one card at a time.",
             "You've already gathered half of Yugi's cards! I can feel the Heart of the Cards guiding your hands with every duel.",
@@ -42,7 +42,7 @@ namespace Yugi_Poc_GameShop.Controller
             "Unbelievable! You have acquired every single card from Yugi's collection! You hold the true spirit of the King of Games!"
         };
 
-        public static readonly string[] KaibaCardsPhrases = new string[]
+        private static readonly string[] KaibaCardsPhrases = new string[]
         {
             "You've started diving into the KaibaCorp database! Kaiba might act tough, but he can't ignore your progress.",
             "Halfway through Kaiba's archive! Taming his powerful Dragons and spell cards takes extraordinary skill.",
@@ -52,7 +52,7 @@ namespace Yugi_Poc_GameShop.Controller
             "Magnificent! Kaiba's entire card database is completely unlocked! You've conquered the ultimate test of strength!"
         };
 
-        public static readonly string[] JoeyCardsPhrases = new string[]
+        private static readonly string[] JoeyCardsPhrases = new string[]
         {
             "You're starting to build Joey's collection! He fights with pure heart, and your deck is taking on that same burning spirit!",
             "Halfway through Joey's set! You've proven that you possess both sharp strategy and a bit of his legendary luck!",
@@ -62,14 +62,19 @@ namespace Yugi_Poc_GameShop.Controller
             "Incredible! You've collected every single card from Joey's set! Your passion for Dueling is second to none!"
         };
 
-        private static readonly string FirstPhrase = "Welcome to my shop, young Duelist! I see the passion in your eyes.\n" +
-            "Take your time, build your deck, and let the Heart of the Cards guide your way!";
+        private static readonly string[] FirstPhrases = new string[] {"Welcome to my shop, young Duelist! I see the passion in your eyes.\n" +
+            "Take your time, build your deck, and let the Heart of the Cards guide your way!",
+            "You'll need Shop Tokens to acquire single cards and open Booster Packs! Don't worry if you run out—tokens naturally replenish over time.",
+            "Also, no duplicate is wasted! Every 2nd and 3rd copy of a card earns you a point. Once you reach 10 points, you can open a bonus Booster Pack for free!",
+            "Remember! A true Duelist stays active in battle! Winning a Duel keeps your Booster Pack access fully active for an entire week."};
+
         private static readonly string AlmostCompleted = "Incredible! You've completely mastered two out of the three legendary card sets! You are so close to true perfection!";
+
         private static readonly string CompletedPhrase = "Unbelievable... 771 cards! You have gathered every single card in existence!\n" +
             "You are no longer just a collector; you are a true Grandmaster of Duel Monsters.\n" +
             "My shop is deeply honored to have served you on this legendary journey!";
 
-        public static readonly string[] GreetingPhrases = new string[]
+        private static readonly string[] GreetingPhrases = new string[]
         {
             "Welcome back, young Duelist! Let's see how your collection is coming along.",
             "Ah, good to see you! The Heart of the Cards must have guided you here today.",
@@ -77,6 +82,8 @@ namespace Yugi_Poc_GameShop.Controller
             "Hello there! Ready to check your progress and see what new cards you've found?",
             "Ah, one of my favorite customers! Let me take a quick look at your card binder..."
         };
+
+        private static readonly string ExpiredDuels = "It seems your deck has been resting for a while. A Duelist's spirit stays sharp through battle! Win at least one Duel to reactivate Booster Pack openings with your Shop Tokens or points!";
 
         public static string[] GetChat(Context context, bool justUpdate)
         {
@@ -102,7 +109,7 @@ namespace Yugi_Poc_GameShop.Controller
                 chatterState.KaibaCards == 0 &&
                 chatterState.JoeyCards == 0)
             {
-                toReturn.Add(FirstPhrase);
+                toReturn.AddRange(FirstPhrases);
                 chatterState.YugiCards = yugiSaveCards;
                 chatterState.KaibaCards = kaibaSaveCards;
                 chatterState.JoeyCards = joeySaveCards;
@@ -320,6 +327,11 @@ namespace Yugi_Poc_GameShop.Controller
             chatterState.SpeechState = PackPhrasesState(phrasesState);
             chatterState.MilestonesState = PackPhrasesState(milestonesState);
             context.SetChatterState(chatterState);
+
+            if (context.GetWinningDuelsExpired())
+            {
+                toReturn.Add(ExpiredDuels);
+            }
 
             if (!first && toReturn.Count > 0 && !justUpdate)
             {

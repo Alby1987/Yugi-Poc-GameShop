@@ -41,6 +41,8 @@
             this.LanguagesComboBox = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.CardPointsLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,22 +51,25 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.MenuButton, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.OkButton, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.MenuButton, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.OkButton, 1, 7);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.TokensLabel, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.TokensCountdownLabel, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.InstalledGamesLabel, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.LanguagesComboBox, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label8, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.label9, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.InstalledGamesLabel, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.LanguagesComboBox, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label8, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.label9, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.CardPointsLabel, 1, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowCount = 8;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
@@ -78,9 +83,9 @@
             // MenuButton
             // 
             this.MenuButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MenuButton.Location = new System.Drawing.Point(3, 543);
+            this.MenuButton.Location = new System.Drawing.Point(3, 548);
             this.MenuButton.Name = "MenuButton";
-            this.MenuButton.Size = new System.Drawing.Size(394, 54);
+            this.MenuButton.Size = new System.Drawing.Size(394, 49);
             this.MenuButton.TabIndex = 2;
             this.MenuButton.Text = "Menu";
             this.MenuButton.UseVisualStyleBackColor = true;
@@ -89,9 +94,9 @@
             // OkButton
             // 
             this.OkButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.OkButton.Location = new System.Drawing.Point(403, 543);
+            this.OkButton.Location = new System.Drawing.Point(403, 548);
             this.OkButton.Name = "OkButton";
-            this.OkButton.Size = new System.Drawing.Size(394, 54);
+            this.OkButton.Size = new System.Drawing.Size(394, 49);
             this.OkButton.TabIndex = 3;
             this.OkButton.Text = "Ok";
             this.OkButton.UseVisualStyleBackColor = true;
@@ -141,7 +146,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label6.Location = new System.Drawing.Point(299, 90);
+            this.label6.Location = new System.Drawing.Point(299, 120);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(98, 90);
             this.label6.TabIndex = 8;
@@ -151,7 +156,7 @@
             // 
             this.InstalledGamesLabel.AutoSize = true;
             this.InstalledGamesLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.InstalledGamesLabel.Location = new System.Drawing.Point(403, 90);
+            this.InstalledGamesLabel.Location = new System.Drawing.Point(403, 120);
             this.InstalledGamesLabel.Name = "InstalledGamesLabel";
             this.InstalledGamesLabel.Size = new System.Drawing.Size(45, 90);
             this.InstalledGamesLabel.TabIndex = 9;
@@ -161,7 +166,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label1.Location = new System.Drawing.Point(239, 180);
+            this.label1.Location = new System.Drawing.Point(239, 210);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(158, 60);
             this.label1.TabIndex = 1;
@@ -171,7 +176,7 @@
             // 
             this.LanguagesComboBox.Dock = System.Windows.Forms.DockStyle.Left;
             this.LanguagesComboBox.FormattingEnabled = true;
-            this.LanguagesComboBox.Location = new System.Drawing.Point(403, 183);
+            this.LanguagesComboBox.Location = new System.Drawing.Point(403, 213);
             this.LanguagesComboBox.Name = "LanguagesComboBox";
             this.LanguagesComboBox.Size = new System.Drawing.Size(394, 21);
             this.LanguagesComboBox.TabIndex = 0;
@@ -180,9 +185,9 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label8.Location = new System.Drawing.Point(359, 240);
+            this.label8.Location = new System.Drawing.Point(359, 270);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(38, 300);
+            this.label8.Size = new System.Drawing.Size(38, 275);
             this.label8.TabIndex = 10;
             this.label8.Text = "About:";
             // 
@@ -190,12 +195,32 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label9.Location = new System.Drawing.Point(403, 240);
+            this.label9.Location = new System.Drawing.Point(403, 270);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(271, 300);
+            this.label9.Size = new System.Drawing.Size(271, 275);
             this.label9.TabIndex = 11;
             this.label9.Text = "Using part of code from GO-PoC-Toolset by Bitemydusto\r\n\r\nMade by Alby87\r\n\r\nLogo m" +
     "ade with AI\r\n\r\nThis is a fanwork and is not endorsed by Konami";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label3.Location = new System.Drawing.Point(334, 90);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(63, 30);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Card points:";
+            // 
+            // cardPointsLabel
+            // 
+            this.CardPointsLabel.AutoSize = true;
+            this.CardPointsLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.CardPointsLabel.Location = new System.Drawing.Point(403, 90);
+            this.CardPointsLabel.Name = "cardPointsLabel";
+            this.CardPointsLabel.Size = new System.Drawing.Size(45, 30);
+            this.CardPointsLabel.TabIndex = 13;
+            this.CardPointsLabel.Text = "Loading";
             // 
             // OptionsControl
             // 
@@ -226,5 +251,7 @@
         private System.Windows.Forms.Label InstalledGamesLabel;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label CardPointsLabel;
     }
 }
