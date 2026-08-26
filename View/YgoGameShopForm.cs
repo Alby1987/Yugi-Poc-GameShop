@@ -13,7 +13,7 @@ namespace Yugi_Poc_GameShop
             InitializeComponent();
             context.LoadLibrary();
             context.LoadGameSave();
-            context.UpdatePoints();
+            context.UpdatePoints(true);
             images.LoadImages();
             _controls = new YgoControl[7];
             _controls[0] = new MenuControl(this, context)

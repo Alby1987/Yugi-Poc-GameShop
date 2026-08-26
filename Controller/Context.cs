@@ -237,7 +237,7 @@ namespace Yugi_Poc_GameShop
 
             Reset();
             SaveGameSave();
-            UpdatePoints();
+            UpdatePoints(false);
             SaveSettings();
         }
 
@@ -318,7 +318,7 @@ namespace Yugi_Poc_GameShop
         internal void ConsumeTokensOrPoints()
         {
             UpdateTokens();
-            UpdatePoints();
+            UpdatePoints(false);
 
             if (_internalSave.Tokens <= 0)
             {
@@ -373,7 +373,7 @@ namespace Yugi_Poc_GameShop
             _internalSave.ChatterState = chatterState;
         }
 
-        internal void UpdatePoints()
+        internal void UpdatePoints(bool atStart)
         {
             var newPoints = 0;
             var savedCards = _internalSave.SavedCards;
@@ -418,12 +418,12 @@ namespace Yugi_Poc_GameShop
                 _internalSave.Points += newPoints;
                 _internalSave.SavedCards = savedCards;
                 _internalSave.LastCardWon = DateTime.UtcNow;
-                SaveGameSave();
+                SaveSettings();
             }
-            else if (newCardsFound)
+            else if (newCardsFound && atStart)
             {
                 _internalSave.LastCardWon = DateTime.UtcNow;
-                SaveGameSave();
+                SaveSettings();
             }
         }
 
