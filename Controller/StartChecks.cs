@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 using Yugi_Poc_GameShop.Model;
 
 namespace Yugi_Poc_GameShop
@@ -16,57 +17,79 @@ namespace Yugi_Poc_GameShop
             var registryKey = @"SOFTWARE\KONAMI\Yu-Gi-Oh! Power Of Chaos\system";
             var dataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data");
 
+            PathsFile pathsFile;
             using (RegistryKey key = Registry.LocalMachine.OpenSubKey(registryKey))
             {
                 if (key != null)
                 {
                     var commonDir = (string)key.GetValue("CommonDir");
-                    if (commonDir == null || !File.Exists(Path.Combine(commonDir, "system.dat")))
-                    {
-                        MessageBox.Show("Can not read Common Dir where data is saved", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Environment.Exit(0);
-                    }
-
                     var installDirJ = (string)key.GetValue("InstallDirJ");
                     var installDirK = (string)key.GetValue("InstallDirK");
                     var installDirY = (string)key.GetValue("InstallDir");
-
-                    var installedJ = installDirJ != null && Directory.Exists(installDirJ);
-                    var installedK = installDirK != null && Directory.Exists(installDirK);
-                    var installedY = installDirY != null && Directory.Exists(installDirY);
-
-                    if (!installedJ && !installedK && !installedY) {
-                        MessageBox.Show("No game installed!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Environment.Exit(0);
-                    }
-                    var installedGames = new CardFilter(installedY, installedK, installedJ);
-
-                    var idFile = Path.Combine(dataPath, @"bin#/card_id.bin");
-                    if (File.Exists(idFile))
-                    {
-                        return new Paths
-                        {
-                            CommonDir = commonDir,
-                            LibraryDir = dataPath,
-                            InstalledGames = installedGames
-                        };
-                    }
-                    var path = installedJ ? installDirJ : installedK ? installDirK : installDirY;
-                    var filePath = Path.Combine(path, "data.dat");
-                    var files = GetFileInfos(filePath).Where(x => x.FileName.StartsWith("bin#") || x.FileName.StartsWith("card")).ToList();
-                    UnpackFiles(files, filePath, dataPath);
-
-                    return new Paths
+                    pathsFile = new PathsFile
                     {
                         CommonDir = commonDir,
+                        InstallDirJ = installDirJ,
+                        InstallDirK = installDirK,
+                        InstallDirY = installDirY
+                    };
+                }
+                else
+                {
+                    pathsFile = LoadPaths();
+                    if (pathsFile == null || pathsFile.IsNullOrEmpty())
+                    {
+                        MessageBox.Show("Missing registry data about the games. Please select the folders of the games and the common folder with game save", "Missing informations", MessageBoxButtons.OK);
+                        pathsFile = new PathsFile
+                        {
+                            InstallDirJ =  SelectFolder("Joey the Passion"),
+                            InstallDirK = SelectFolder("Kaiba the Revenge"),
+                            InstallDirY = SelectFolder("Yugi the Destiny"),
+                            CommonDir = SelectFolder("Common folder for saves", false)
+                        };
+
+                        SavePaths(pathsFile);
+                    }
+                }
+
+                if (pathsFile.CommonDir == null || !File.Exists(Path.Combine(pathsFile.CommonDir, "system.dat")))
+                {
+                    MessageBox.Show("Game save not found. Have you run one of the games at least once?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Environment.Exit(0);
+                }
+
+                var installedJ = pathsFile.InstallDirJ != null && Directory.Exists(pathsFile.InstallDirJ) && File.Exists(Path.Combine(pathsFile.InstallDirJ, "data.dat"));
+                var installedK = pathsFile.InstallDirK != null && Directory.Exists(pathsFile.InstallDirK) && File.Exists(Path.Combine(pathsFile.InstallDirK, "data.dat"));
+                var installedY = pathsFile.InstallDirY != null && Directory.Exists(pathsFile.InstallDirY) && File.Exists(Path.Combine(pathsFile.InstallDirY, "data.dat"));
+
+                if (!installedJ && !installedK && !installedY)
+                {
+                    MessageBox.Show("Games paths set but no data found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Environment.Exit(0);
+                }
+                var installedGames = new CardFilter(installedY, installedK, installedJ);
+
+                var idFile = Path.Combine(dataPath, @"bin#/card_id.bin");
+                if (File.Exists(idFile))
+                {
+                    return new Paths
+                    {
+                        CommonDir = pathsFile.CommonDir,
                         LibraryDir = dataPath,
                         InstalledGames = installedGames
                     };
                 }
+                var path = installedJ ? pathsFile.InstallDirJ : installedK ? pathsFile.InstallDirK : pathsFile.InstallDirY;
+                var filePath = Path.Combine(path, "data.dat");
+                var files = GetFileInfos(filePath).Where(x => x.FileName.StartsWith("bin#") || x.FileName.StartsWith("card")).ToList();
+                UnpackFiles(files, filePath, dataPath);
 
-                MessageBox.Show("No game installed!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(0);
-                return null;
+                return new Paths
+                {
+                    CommonDir = pathsFile.CommonDir,
+                    LibraryDir = dataPath,
+                    InstalledGames = installedGames
+                };
             }
         }
 
@@ -229,6 +252,53 @@ namespace Yugi_Poc_GameShop
             public uint CompressedFileSize { get; set; } = 0x0;
             public uint FileOffset { get; set; } = 0x0;
             public string FileOffsetHex => $"{FileOffset:X}";
+        }
+
+        private static PathsFile LoadPaths()
+        {
+            var internalSavePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Paths.xml");
+            if (!File.Exists(internalSavePath))
+            {
+                return null;
+            }
+
+            XmlSerializer serializer = new XmlSerializer(typeof(PathsFile));
+            using (StreamReader reader = new StreamReader(internalSavePath))
+            {
+                return (PathsFile)serializer.Deserialize(reader);
+            }
+        }
+
+        private static void SavePaths(PathsFile pathsFile)
+        {
+            var internalSavePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Paths.xml");
+            XmlSerializer serializer = new XmlSerializer(typeof(PathsFile));
+            using (StreamWriter writer = new StreamWriter(internalSavePath))
+            {
+                serializer.Serialize(writer, pathsFile);
+            }
+        }
+
+        public static string SelectFolder(string game, bool dataDat = true)
+        {
+            using (OpenFileDialog dialog = new OpenFileDialog())
+            {
+                dialog.Title = dataDat ? $"Select data.dat for {game}" : "Select system.dat for game saves";
+                dialog.Filter = dataDat ? "Game Data (data.dat)|data.dat" : "System Data (system.dat)|system.dat";
+                dialog.FileName = dataDat ? "data.dat" : "system.dat";
+                dialog.CheckFileExists = true;
+                dialog.CheckPathExists = true;
+                dialog.Multiselect = false;
+
+                var result = dialog.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrEmpty(dialog.FileName))
+                {
+                    return Path.GetDirectoryName(dialog.FileName);
+                }
+            }
+
+            return null;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Yugi_Poc_GameShop
 {
     internal static class Program
     {
-        private static SplashScreenForm splash;
+        private static SplashScreenForm _splash;
 
         [STAThread]
         static void Main()
@@ -43,17 +43,17 @@ namespace Yugi_Poc_GameShop
 
         private static void ShowSplash()
         {
-            splash = new SplashScreenForm();
+            _splash = new SplashScreenForm();
             var version = Assembly.GetExecutingAssembly().GetName().Version;
-            splash.SetVersion(version.ToString());
-            Application.Run(splash);
+            _splash.SetVersion(version.ToString());
+            Application.Run(_splash);
         }
 
         private static void CloseSplash()
         {
-            splash?.Invoke(new MethodInvoker(delegate {
-                    splash.Close();
-                    splash.Dispose();
+            _splash?.Invoke(new MethodInvoker(delegate {
+                    _splash.Close();
+                    _splash.Dispose();
                 }));
         }
     }

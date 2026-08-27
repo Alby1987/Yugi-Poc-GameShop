@@ -417,10 +417,10 @@ namespace Yugi_Poc_GameShop
             {
                 _internalSave.Points += newPoints;
                 _internalSave.SavedCards = savedCards;
-                _internalSave.LastCardWon = DateTime.UtcNow;
                 SaveSettings();
             }
-            else if (newCardsFound && atStart)
+            
+            if (newCardsFound && atStart)
             {
                 _internalSave.LastCardWon = DateTime.UtcNow;
                 SaveSettings();

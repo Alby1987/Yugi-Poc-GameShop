@@ -54,6 +54,7 @@
     <Compile Include="Model\CardFilter.cs" />
     <Compile Include="Model\ChatterState.cs" />
     <Compile Include="Model\Images.cs" />
+    <Compile Include="Model\PathsFile.cs" />
     <Compile Include="Model\Paths.cs" />
     <Compile Include="Controller\StartChecks.cs" />
     <Compile Include="View\ChatterControl.cs">

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Yugi_Poc_GameShop.Model;
 
 namespace Yugi_Poc_GameShop
