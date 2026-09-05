@@ -13,6 +13,7 @@
         public int JoeyTotalCards { get; set; } = 0;
         public ushort SpeechState { get; set; } = 0;
         public ushort MilestonesState { get; set; } = 0;
+        public bool[] CompletedSets = new bool[3];
     }
 
     internal class PhrasesState

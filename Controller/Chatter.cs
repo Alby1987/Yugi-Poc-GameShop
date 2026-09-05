@@ -122,13 +122,14 @@ namespace Yugi_Poc_GameShop.Controller
             {
                 if (yugiSaveCards != chatterState.YugiCards)
                 {
-                    if (yugiSaveCards > 154)
+                    if (yugiSaveCards > 154 && !chatterState.CompletedSets[0])
                     {
                         toReturn.Add(YugiCardsPhrases[5]);
-                        for (int i = 0; i < 6; i++)
+                        for (int i = 0; i < 5; i++)
                         {
                             milestonesState.YugiPhrases[i] = true;
                         }
+                        chatterState.CompletedSets[0] = true;
                     }
                     else if (yugiSaveCards > 149 && !milestonesState.YugiPhrases[4])
                     {
@@ -171,15 +172,16 @@ namespace Yugi_Poc_GameShop.Controller
                     chatterState.YugiCards = yugiSaveCards;
                 }
 
-                if (kaibaSaveCards != chatterState.KaibaCards)
+                if (kaibaSaveCards != chatterState.KaibaCards && !chatterState.CompletedSets[1])
                 {
                     if (kaibaSaveCards > 314)
                     {
                         toReturn.Add(KaibaCardsPhrases[5]);
-                        for (int i = 0; i < 6; i++)
+                        for (int i = 0; i < 5; i++)
                         {
                             milestonesState.KaibaPhrases[i] = true;
                         }
+                        chatterState.CompletedSets[1] = true;
                     }
                     else if (kaibaSaveCards > 304 && !milestonesState.KaibaPhrases[4])
                     {
@@ -222,15 +224,16 @@ namespace Yugi_Poc_GameShop.Controller
                     chatterState.KaibaCards = kaibaSaveCards;
                 }
 
-                if (joeySaveCards != chatterState.JoeyCards)
+                if (joeySaveCards != chatterState.JoeyCards && !chatterState.CompletedSets[2])
                 {
                     if (joeySaveCards > 349)
                     {
                         toReturn.Add(JoeyCardsPhrases[5]);
-                        for (int i = 0; i < 6; i++)
+                        for (int i = 0; i < 5; i++)
                         {
                             milestonesState.JoeyPhrases[i] = true;
                         }
+                        chatterState.CompletedSets[2] = true;
                     }
                     else if (joeySaveCards > 339 && !milestonesState.JoeyPhrases[4])
                     {
