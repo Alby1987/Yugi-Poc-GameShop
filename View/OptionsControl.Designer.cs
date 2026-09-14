@@ -31,19 +31,18 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.MenuButton = new System.Windows.Forms.Button();
             this.OkButton = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.TokensLabel = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.TokensCountdownLabel = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.InstalledGamesLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.LanguagesComboBox = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.CardPointsLabel = new System.Windows.Forms.Label();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.TokensCountdownLabel = new System.Windows.Forms.Label();
+            this.TokenGenerationProgressBar = new System.Windows.Forms.ProgressBar();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -51,32 +50,28 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.MenuButton, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.OkButton, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.TokensLabel, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.TokensCountdownLabel, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.InstalledGamesLabel, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.LanguagesComboBox, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.label8, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.label9, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.CardPointsLabel, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.MenuButton, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.OkButton, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.InstalledGamesLabel, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.LanguagesComboBox, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label8, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label9, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 8;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 90F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 83.33334F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 600);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -102,26 +97,6 @@
             this.OkButton.UseVisualStyleBackColor = true;
             this.OkButton.Click += new System.EventHandler(this.OkButton_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label2.Location = new System.Drawing.Point(306, 30);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(91, 30);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Tokens available:";
-            // 
-            // TokensLabel
-            // 
-            this.TokensLabel.AutoSize = true;
-            this.TokensLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.TokensLabel.Location = new System.Drawing.Point(403, 30);
-            this.TokensLabel.Name = "TokensLabel";
-            this.TokensLabel.Size = new System.Drawing.Size(13, 30);
-            this.TokensLabel.TabIndex = 5;
-            this.TokensLabel.Text = "0";
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -131,16 +106,6 @@
             this.label4.Size = new System.Drawing.Size(134, 30);
             this.label4.TabIndex = 6;
             this.label4.Text = "Next token will be given in:";
-            // 
-            // TokensCountdownLabel
-            // 
-            this.TokensCountdownLabel.AutoSize = true;
-            this.TokensCountdownLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.TokensCountdownLabel.Location = new System.Drawing.Point(403, 60);
-            this.TokensCountdownLabel.Name = "TokensCountdownLabel";
-            this.TokensCountdownLabel.Size = new System.Drawing.Size(34, 30);
-            this.TokensCountdownLabel.TabIndex = 7;
-            this.TokensCountdownLabel.Text = "00:00";
             // 
             // label6
             // 
@@ -202,25 +167,39 @@
             this.label9.Text = "Using part of code from GO-PoC-Toolset by Bitemydusto\r\n\r\nMade by Alby87\r\n\r\nLogo m" +
     "ade with AI\r\n\r\nThis is a fanwork and is not endorsed by Konami";
             // 
-            // label3
+            // tableLayoutPanel2
             // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label3.Location = new System.Drawing.Point(334, 90);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 30);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Card points:";
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tableLayoutPanel2.Controls.Add(this.TokensCountdownLabel, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.TokenGenerationProgressBar, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(403, 63);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(394, 24);
+            this.tableLayoutPanel2.TabIndex = 14;
             // 
-            // cardPointsLabel
+            // TokensCountdownLabel
             // 
-            this.CardPointsLabel.AutoSize = true;
-            this.CardPointsLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.CardPointsLabel.Location = new System.Drawing.Point(403, 90);
-            this.CardPointsLabel.Name = "cardPointsLabel";
-            this.CardPointsLabel.Size = new System.Drawing.Size(45, 30);
-            this.CardPointsLabel.TabIndex = 13;
-            this.CardPointsLabel.Text = "Loading";
+            this.TokensCountdownLabel.AutoSize = true;
+            this.TokensCountdownLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.TokensCountdownLabel.Location = new System.Drawing.Point(3, 0);
+            this.TokensCountdownLabel.Name = "TokensCountdownLabel";
+            this.TokensCountdownLabel.Size = new System.Drawing.Size(34, 24);
+            this.TokensCountdownLabel.TabIndex = 7;
+            this.TokensCountdownLabel.Text = "00:00";
+            // 
+            // TokenGenerationProgressBar
+            // 
+            this.TokenGenerationProgressBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TokenGenerationProgressBar.Location = new System.Drawing.Point(81, 3);
+            this.TokenGenerationProgressBar.Name = "TokenGenerationProgressBar";
+            this.TokenGenerationProgressBar.Size = new System.Drawing.Size(310, 18);
+            this.TokenGenerationProgressBar.TabIndex = 8;
             // 
             // OptionsControl
             // 
@@ -232,6 +211,8 @@
             this.Load += new System.EventHandler(this.LanguageSelect_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -243,15 +224,13 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button MenuButton;
         private System.Windows.Forms.Button OkButton;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label TokensLabel;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label TokensCountdownLabel;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label InstalledGamesLabel;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label CardPointsLabel;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.ProgressBar TokenGenerationProgressBar;
     }
 }

@@ -8,6 +8,7 @@ namespace Yugi_Poc_GameShop.View
         private readonly Context _context;
         private int _tokens;
         private int _points;
+        private int _duplicates;
 
         public MenuControl(YgoGameShopForm form, Context context)
         {
@@ -21,16 +22,20 @@ namespace Yugi_Poc_GameShop.View
         {
             _tokens = _context.GetTokens();
             _points = _context.GetPoints();
+            _duplicates = _context.GetDuplicates();
+            TokensLabel.Text = $"{_tokens} / {_context.GetMaximumTokens()}";
+            PointsLabel.Text = _points.ToString();
+            DuplicatesLabel.Text = _duplicates.ToString();
 
             if (_context.GetWinningDuelsExpired())
             {
                 OpenBoosterPackButton.Enabled = false;
-                OpenBoosterPackButton.Text = $"Open Booster Pack - Tokens: {_tokens} - Points: {_points} - Win a duel to open it";
+                OpenBoosterPackButton.Text = $"Open Booster Pack - Your dueling spirit is too weak, win a duel to continue opening booster packs!";
             }
             else
             {
                 OpenBoosterPackButton.Enabled = _tokens > 0 || _points > 9;
-                OpenBoosterPackButton.Text = $"Open Booster Pack - Tokens: {_tokens} - Points: {_points}";
+                OpenBoosterPackButton.Text = $"Open Booster Pack";
             }
         }
 

@@ -24,9 +24,8 @@ namespace Yugi_Poc_GameShop.View
         public override void Reset()
         {
             LanguagesComboBox.SelectedItem = _context.GetLanguage();
-            TokensLabel.Text = _context.GetTokens().ToString();
             TokensCountdownLabel.Text = _context.GetTokenCountdown().ToString();
-            CardPointsLabel.Text = _context.GetPoints().ToString();
+            TokenGenerationProgressBar.Value = _context.GetTokenProgressPercentage();
             InstalledGamesLabel.Text = _context.InstalledGames.ToString();
         }
 

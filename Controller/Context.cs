@@ -292,6 +292,11 @@ namespace Yugi_Poc_GameShop
             return _internalSave.Points;
         }
 
+        internal int GetDuplicates()
+        {
+            return _playersCards.Count(x => x.Value > 3);
+        }
+
         internal string GetTokenCountdown()
         {
             if (_internalSave.Tokens >= 4)
@@ -313,6 +318,30 @@ namespace Yugi_Poc_GameShop
             int seconds = difference.Seconds;
 
             return string.Format("{0:D2}:{1:D2}:{2:D2}", hours, minutes, seconds);
+        }
+
+        internal int GetTokenProgressPercentage()
+        {
+            if (_internalSave.Tokens >= 4)
+            {
+                return 100;
+            }
+
+            var now = DateTime.UtcNow;
+            var nextTokenTime = _internalSave.LastSave.AddHours(12);
+            var remaining = nextTokenTime - now;
+
+            if (remaining <= TimeSpan.Zero)
+            {
+                return 100;
+            }
+
+            var totalInterval = TimeSpan.FromHours(12);
+            var elapsed = totalInterval - remaining;
+
+            int percentage = (int)Math.Round((elapsed.TotalSeconds / totalInterval.TotalSeconds) * 100);
+
+            return Math.Max(0, Math.Min(100, percentage));
         }
 
         internal void ConsumeTokensOrPoints()
@@ -450,6 +479,11 @@ namespace Yugi_Poc_GameShop
             }
 
             _playersCards[index] -= 1;
+        }
+
+        internal int GetMaximumTokens()
+        {
+            return 4;
         }
     }
 }
