@@ -49,5 +49,11 @@ namespace Yugi_Poc_GameShop.View
             MessageBox.Show("Please restart the software", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Environment.Exit(0);
         }
+
+        private void OptionsTimer_Tick(object sender, EventArgs e)
+        {
+            TokensCountdownLabel.Text = _context.GetTokenCountdown().ToString();
+            TokenGenerationProgressBar.Value = _context.GetTokenProgressPercentage();
+        }
     }
 }

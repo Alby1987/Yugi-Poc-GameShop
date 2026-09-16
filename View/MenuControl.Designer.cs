@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuControl));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.OpenBoosterPackButton = new System.Windows.Forms.Button();
@@ -42,6 +43,7 @@
             this.PointsLabel = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.TokensLabel = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
@@ -163,6 +165,7 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox2, "Tokens");
             // 
             // pictureBox4
             // 
@@ -174,6 +177,7 @@
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox4.TabIndex = 2;
             this.pictureBox4.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox4, "Tradable Cards");
             // 
             // DuplicatesLabel
             // 
@@ -185,6 +189,7 @@
             this.DuplicatesLabel.TabIndex = 5;
             this.DuplicatesLabel.Text = "0";
             this.DuplicatesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolTip1.SetToolTip(this.DuplicatesLabel, "Tradable Cards");
             // 
             // PointsLabel
             // 
@@ -196,6 +201,7 @@
             this.PointsLabel.TabIndex = 4;
             this.PointsLabel.Text = "0";
             this.PointsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolTip1.SetToolTip(this.PointsLabel, "Points");
             // 
             // pictureBox3
             // 
@@ -207,6 +213,7 @@
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 1;
             this.pictureBox3.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox3, "Points");
             // 
             // TokensLabel
             // 
@@ -218,6 +225,7 @@
             this.TokensLabel.TabIndex = 3;
             this.TokensLabel.Text = "0";
             this.TokensLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolTip1.SetToolTip(this.TokensLabel, "Tokens");
             // 
             // MenuControl
             // 
@@ -252,5 +260,6 @@
         private System.Windows.Forms.Label TokensLabel;
         private System.Windows.Forms.Label PointsLabel;
         private System.Windows.Forms.Label DuplicatesLabel;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

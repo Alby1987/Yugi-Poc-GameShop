@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.MenuButton = new System.Windows.Forms.Button();
             this.OkButton = new System.Windows.Forms.Button();
@@ -41,6 +42,7 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.TokensCountdownLabel = new System.Windows.Forms.Label();
             this.TokenGenerationProgressBar = new System.Windows.Forms.ProgressBar();
+            this.OptionsTimer = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -201,6 +203,12 @@
             this.TokenGenerationProgressBar.Size = new System.Drawing.Size(310, 18);
             this.TokenGenerationProgressBar.TabIndex = 8;
             // 
+            // OptionsTimer
+            // 
+            this.OptionsTimer.Enabled = true;
+            this.OptionsTimer.Interval = 500;
+            this.OptionsTimer.Tick += new System.EventHandler(this.OptionsTimer_Tick);
+            // 
             // OptionsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -232,5 +240,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.ProgressBar TokenGenerationProgressBar;
+        private System.Windows.Forms.Timer OptionsTimer;
     }
 }
