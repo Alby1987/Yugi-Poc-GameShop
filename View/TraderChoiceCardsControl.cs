@@ -233,7 +233,7 @@ namespace Yugi_Poc_GameShop.View
 
                 if (_tradeCards)
                 {
-                    _context.Apply();
+                    _context.Apply(true);
                     _context.Reset();
                     Reset();
                     _form.BackMenu();

@@ -223,7 +223,7 @@ namespace Yugi_Poc_GameShop
             _toRemove.Clear();
         }
 
-        internal void Apply()
+        internal void Apply(bool trade = false)
         {
             foreach (var cardId in _toAdd)
             {
@@ -237,7 +237,7 @@ namespace Yugi_Poc_GameShop
 
             Reset();
             SaveGameSave();
-            UpdatePoints(false);
+            UpdatePoints(false, trade);
             SaveSettings();
         }
 
@@ -402,7 +402,7 @@ namespace Yugi_Poc_GameShop
             _internalSave.ChatterState = chatterState;
         }
 
-        internal void UpdatePoints(bool atStart)
+        internal void UpdatePoints(bool atStart, bool trade = false)
         {
             var newPoints = 0;
             var savedCards = _internalSave.SavedCards;
@@ -444,11 +444,15 @@ namespace Yugi_Poc_GameShop
 
             if (newPoints > 0)
             {
-                _internalSave.Points += newPoints;
+                if (!trade)
+                {
+                    _internalSave.Points += newPoints;
+                }
+
                 _internalSave.SavedCards = savedCards;
                 SaveSettings();
             }
-            
+
             if (newCardsFound && atStart)
             {
                 _internalSave.LastCardWon = DateTime.UtcNow;
