@@ -277,9 +277,9 @@ namespace Yugi_Poc_GameShop.Controller
                 }
             }
 
-            var yugiDifference = yugiTotalSaveCards - chatterState.YugiTotalCards;
-            var kaibaDifference = kaibaTotalSaveCards - chatterState.KaibaTotalCards;
-            var joeyDifference = joeyTotalSaveCards - chatterState.JoeyTotalCards;
+            var yugiDifference = chatterState.YugiTotalCards > 0 ? yugiTotalSaveCards - chatterState.YugiTotalCards : 0;
+            var kaibaDifference = chatterState.KaibaTotalCards > 0 ? kaibaTotalSaveCards - chatterState.KaibaTotalCards : 0;
+            var joeyDifference = chatterState.JoeyTotalCards > 0 ? joeyTotalSaveCards - chatterState.JoeyTotalCards : 0;
 
             chatterState.YugiTotalCards = yugiTotalSaveCards;
             chatterState.KaibaTotalCards = kaibaTotalSaveCards;
@@ -344,6 +344,15 @@ namespace Yugi_Poc_GameShop.Controller
             return toReturn.ToArray();
         }
 
+        public static string GetDebug(Context context)
+        {
+            var chatterState = context.GetChatterState();
+            var phrasesState = UnpackPhrasesState(chatterState.SpeechState);
+            return $"Y:{string.Join("", phrasesState.YugiPhrases.Select(b => b ? "1" : "0").ToArray())}\n" +
+                $"K:{string.Join("", phrasesState.KaibaPhrases.Select(b => b ? "1" : "0").ToArray())}\n" +
+                $"J:{string.Join("", phrasesState.JoeyPhrases.Select(b => b ? "1" : "0").ToArray())}";
+        }
+
         private static string GetPhrase(string[] phrases, bool[] used)
         {
             var availableIndices = new List<int>();
@@ -367,7 +376,7 @@ namespace Yugi_Poc_GameShop.Controller
             return phrases[selectedIndex];
         }
 
-        public static PhrasesState UnpackPhrasesState(ushort rawValue)
+        private static PhrasesState UnpackPhrasesState(ushort rawValue)
         {
             bool mainFlag = (rawValue & 0x01) != 0;
 
@@ -386,7 +395,7 @@ namespace Yugi_Poc_GameShop.Controller
             };
         }
 
-        public static ushort PackPhrasesState(PhrasesState flags)
+        private static ushort PackPhrasesState(PhrasesState flags)
         {
             ushort result = 0;
 

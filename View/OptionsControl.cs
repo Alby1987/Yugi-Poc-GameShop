@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Yugi_Poc_GameShop.Controller;
 
 namespace Yugi_Poc_GameShop.View
 {
@@ -54,6 +55,15 @@ namespace Yugi_Poc_GameShop.View
         {
             TokensCountdownLabel.Text = _context.GetTokenCountdown().ToString();
             TokenGenerationProgressBar.Value = _context.GetTokenProgressPercentage();
+        }
+
+        private void InstalledGamesLabel_DoubleClick(object sender, EventArgs e)
+        {
+            if (_context.GetChatterState().Debug)
+            {
+                var debug = Chatter.GetDebug(_context);
+                MessageBox.Show(debug, "Chatter Debug", MessageBoxButtons.OK);
+            }
         }
     }
 }

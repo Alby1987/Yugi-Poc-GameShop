@@ -128,6 +128,7 @@
             this.InstalledGamesLabel.Size = new System.Drawing.Size(45, 90);
             this.InstalledGamesLabel.TabIndex = 9;
             this.InstalledGamesLabel.Text = "Loading";
+            this.InstalledGamesLabel.DoubleClick += new System.EventHandler(this.InstalledGamesLabel_DoubleClick);
             // 
             // label1
             // 
