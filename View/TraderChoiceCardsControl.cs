@@ -190,7 +190,7 @@ namespace Yugi_Poc_GameShop.View
             {
                 ListViewItem draggedItem = (ListViewItem)e.Data.GetData(typeof(ListViewItem));
                 var tag = (int)draggedItem.Tag;
-                if (_showCards[tag] > 0 && _showCards[tag] != 255 && LowerListView.Items.Count < 1)
+                if (_showCards[tag] > 0 && _showCards[tag] < 3 && LowerListView.Items.Count < 1)
                 {
                     e.Effect = DragDropEffects.Copy;
                 }

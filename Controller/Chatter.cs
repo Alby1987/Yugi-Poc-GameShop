@@ -331,7 +331,7 @@ namespace Yugi_Poc_GameShop.Controller
             chatterState.MilestonesState = PackPhrasesState(milestonesState);
             context.SetChatterState(chatterState);
 
-            if (context.GetWinningDuelsExpired())
+            if (context.GetWinningDuelsExpired() && !justUpdate)
             {
                 toReturn.Add(ExpiredDuels);
             }
