@@ -9,7 +9,7 @@ namespace Yugi_Poc_GameShop.Model
     internal class Images
     {
         internal ImageList _thumbnails;
-        
+
         private readonly Dictionary<string, Image> _imageCache = new Dictionary<string, Image>();
         private readonly Context _context;
 
@@ -21,12 +21,12 @@ namespace Yugi_Poc_GameShop.Model
         internal ImageList Thumbnails => _thumbnails;
         internal Dictionary<string, Image> ImageCache => _imageCache;
         internal string Unknown => "card_ura.bmp";
-        internal Bitmap Y {get; private set;}
-        internal Bitmap Y1 {get; private set;}
-        internal Bitmap K {get; private set;}
-        internal Bitmap K1 {get; private set;}
-        internal Bitmap J {get; private set;}
-        internal Bitmap J1 {get; private set;}
+        internal Bitmap Y { get; private set; }
+        internal Bitmap Y1 { get; private set; }
+        internal Bitmap K { get; private set; }
+        internal Bitmap K1 { get; private set; }
+        internal Bitmap J { get; private set; }
+        internal Bitmap J1 { get; private set; }
 
         internal void LoadImages()
         {
@@ -64,8 +64,15 @@ namespace Yugi_Poc_GameShop.Model
                     }
                 }
 
-                _thumbnails.Images.Add(cardData.ImageName, imgToAdd);
-                _imageCache.Add(cardData.ImageName, imgToAdd);
+                if (!_thumbnails.Images.ContainsKey(cardData.ImageName))
+                {
+                    _thumbnails.Images.Add(cardData.ImageName, imgToAdd);
+                }
+
+                if (!_imageCache.ContainsKey(cardData.ImageName))
+                {
+                    _imageCache.Add(cardData.ImageName, imgToAdd);
+                }
             }
 
             Y = Resources.Y;

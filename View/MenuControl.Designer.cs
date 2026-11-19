@@ -177,7 +177,7 @@
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox4.TabIndex = 2;
             this.pictureBox4.TabStop = false;
-            this.toolTip1.SetToolTip(this.pictureBox4, "Tradable Cards");
+            this.toolTip1.SetToolTip(this.pictureBox4, "Tradable Cards / Total Cards");
             // 
             // DuplicatesLabel
             // 
@@ -189,7 +189,7 @@
             this.DuplicatesLabel.TabIndex = 5;
             this.DuplicatesLabel.Text = "0";
             this.DuplicatesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolTip1.SetToolTip(this.DuplicatesLabel, "Tradable Cards");
+            this.toolTip1.SetToolTip(this.DuplicatesLabel, "Tradable Cards / Total Cards");
             // 
             // PointsLabel
             // 

@@ -9,6 +9,7 @@ namespace Yugi_Poc_GameShop.View
         private int _tokens;
         private int _points;
         private int _duplicates;
+        private int _totalCards;
 
         public MenuControl(YgoGameShopForm form, Context context)
         {
@@ -23,9 +24,10 @@ namespace Yugi_Poc_GameShop.View
             _tokens = _context.GetTokens();
             _points = _context.GetPoints();
             _duplicates = _context.GetDuplicates();
+            _totalCards = _context.GetTotalCards();
             TokensLabel.Text = $"{_tokens} / {_context.GetMaximumTokens()}";
             PointsLabel.Text = _points.ToString();
-            DuplicatesLabel.Text = _duplicates.ToString();
+            DuplicatesLabel.Text = $"{_duplicates} / {_totalCards}";
 
             if (_context.GetWinningDuelsExpired())
             {

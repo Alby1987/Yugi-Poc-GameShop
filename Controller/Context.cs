@@ -297,6 +297,11 @@ namespace Yugi_Poc_GameShop
             return _playersCards.Count(x => x.Value > 3);
         }
 
+        internal int GetTotalCards()
+        {
+            return _playersCards.Sum(x => x.Value);
+        }
+
         internal string GetTokenCountdown()
         {
             if (_internalSave.Tokens >= 4)
