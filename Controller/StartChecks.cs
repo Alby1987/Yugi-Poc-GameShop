@@ -14,10 +14,11 @@ namespace Yugi_Poc_GameShop
     {
         internal static Paths CheckData()
         {
+            var overrideDataPath = false;
             var registryKey = @"SOFTWARE\KONAMI\Yu-Gi-Oh! Power Of Chaos\system";
             var dataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data");
 
-            PathsFile pathsFile;
+            PathsFile pathsFile = new PathsFile();
             using (RegistryKey key = Registry.LocalMachine.OpenSubKey(registryKey))
             {
                 if (key != null)
@@ -26,64 +27,78 @@ namespace Yugi_Poc_GameShop
                     var installDirJ = (string)key.GetValue("InstallDirJ");
                     var installDirK = (string)key.GetValue("InstallDirK");
                     var installDirY = (string)key.GetValue("InstallDir");
-                    pathsFile = new PathsFile
-                    {
-                        CommonDir = commonDir,
-                        InstallDirJ = installDirJ,
-                        InstallDirK = installDirK,
-                        InstallDirY = installDirY
-                    };
+
+                    pathsFile.CommonDir = commonDir;
+                    pathsFile.InstallDirJ = installDirJ;
+                    pathsFile.InstallDirK = installDirK;
+                    pathsFile.InstallDirY = installDirY;
+                }
+            }
+
+            var filePaths = LoadPaths();
+            pathsFile.Merge(filePaths);
+
+            if (pathsFile.MissingCommonDir())
+            {
+                MessageBox.Show("Please configure the common folder", "Missing informations", MessageBoxButtons.OK);
+                pathsFile.CommonDir = SelectFolder(null, SelectFolderOption.Common);
+                SavePaths(pathsFile);
+            }
+
+            if (!pathsFile.MissingOverrideDir())
+            {
+                dataPath = pathsFile.OverrideDataDir;
+                overrideDataPath = true;
+            }
+
+            if (pathsFile.MissingAnyGame() && !overrideDataPath)
+            {
+                var trilogy = MessageBox.Show("Missing registry data about the games. Do you have the Trilogy MOD?", "Missing informations", MessageBoxButtons.YesNo);
+                if (trilogy == DialogResult.Yes)
+                {
+                    MessageBox.Show("Please select the file card_id.bin inside the data/bin# folder inside the Trilogy MOD", "Missing informations", MessageBoxButtons.OK);
+                    pathsFile.OverrideDataDir = Path.GetDirectoryName(SelectFolder(null, SelectFolderOption.DataFolder));
+                    overrideDataPath = true;
+                    dataPath = pathsFile.OverrideDataDir;
+                    SavePaths(pathsFile);
                 }
                 else
                 {
-                    pathsFile = LoadPaths();
-                    if (pathsFile == null || pathsFile.IsNullOrEmpty())
-                    {
-                        MessageBox.Show("Missing registry data about the games. Please select the folders of the games and the common folder with game save", "Missing informations", MessageBoxButtons.OK);
-                        pathsFile = new PathsFile
-                        {
-                            InstallDirJ =  SelectFolder("Joey the Passion"),
-                            InstallDirK = SelectFolder("Kaiba the Revenge"),
-                            InstallDirY = SelectFolder("Yugi the Destiny"),
-                            CommonDir = SelectFolder("Common folder for saves", false)
-                        };
-
-                        SavePaths(pathsFile);
-                    }
+                    MessageBox.Show("Please select the data.dat file from the three games (in order, Joey, Kaiba, Yugi). If you don't have one of these games, please click the cancel button in the file chooser dialog", "Missing informations", MessageBoxButtons.OK);
+                    pathsFile.InstallDirJ = SelectFolder("Joey the Passion", SelectFolderOption.GameData);
+                    pathsFile.InstallDirK = SelectFolder("Kaiba the Revenge", SelectFolderOption.GameData);
+                    pathsFile.InstallDirY = SelectFolder("Yugi the Destiny", SelectFolderOption.GameData);
+                    SavePaths(pathsFile);
                 }
+            }
 
-                if (pathsFile.CommonDir == null || !File.Exists(Path.Combine(pathsFile.CommonDir, "system.dat")))
-                {
-                    MessageBox.Show("Game save not found. Have you run one of the games at least once?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Environment.Exit(0);
-                }
+            if (pathsFile.CommonDir == null || !File.Exists(Path.Combine(pathsFile.CommonDir, "system.dat")))
+            {
+                MessageBox.Show("Game save not found. Have you run one of the games at least once?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                pathsFile = new PathsFile();
+                SavePaths(pathsFile);
+                Environment.Exit(0);
+            }
 
-                var installedJ = pathsFile.InstallDirJ != null && Directory.Exists(pathsFile.InstallDirJ) && File.Exists(Path.Combine(pathsFile.InstallDirJ, "data.dat"));
-                var installedK = pathsFile.InstallDirK != null && Directory.Exists(pathsFile.InstallDirK) && File.Exists(Path.Combine(pathsFile.InstallDirK, "data.dat"));
-                var installedY = pathsFile.InstallDirY != null && Directory.Exists(pathsFile.InstallDirY) && File.Exists(Path.Combine(pathsFile.InstallDirY, "data.dat"));
+            var installedJ = pathsFile.InstallDirJ != null && Directory.Exists(pathsFile.InstallDirJ) && File.Exists(Path.Combine(pathsFile.InstallDirJ, "data.dat"));
+            var installedK = pathsFile.InstallDirK != null && Directory.Exists(pathsFile.InstallDirK) && File.Exists(Path.Combine(pathsFile.InstallDirK, "data.dat"));
+            var installedY = pathsFile.InstallDirY != null && Directory.Exists(pathsFile.InstallDirY) && File.Exists(Path.Combine(pathsFile.InstallDirY, "data.dat"));
 
-                if (!installedJ && !installedK && !installedY)
-                {
-                    MessageBox.Show("Games paths set but no data found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Environment.Exit(0);
-                }
-                var installedGames = new CardFilter(installedY, installedK, installedJ);
+            if (overrideDataPath)
+            {
+                installedJ = installedK = installedY = true;
+            }
 
-                var idFile = Path.Combine(dataPath, @"bin#/card_id.bin");
-                if (File.Exists(idFile))
-                {
-                    return new Paths
-                    {
-                        CommonDir = pathsFile.CommonDir,
-                        LibraryDir = dataPath,
-                        InstalledGames = installedGames
-                    };
-                }
-                var path = installedJ ? pathsFile.InstallDirJ : installedK ? pathsFile.InstallDirK : pathsFile.InstallDirY;
-                var filePath = Path.Combine(path, "data.dat");
-                var files = GetFileInfos(filePath).Where(x => x.FileName.StartsWith("bin#") || x.FileName.StartsWith("card")).ToList();
-                UnpackFiles(files, filePath, dataPath);
+            if (!installedJ && !installedK && !installedY)
+            {
+                MessageBox.Show("Games paths set but no data found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(0);
+            }
+            var installedGames = new CardFilter(installedY, installedK, installedJ);
 
+            var idFile = Path.Combine(dataPath, @"bin#/card_id.bin");
+            if (File.Exists(idFile))
+            {
                 return new Paths
                 {
                     CommonDir = pathsFile.CommonDir,
@@ -91,6 +106,26 @@ namespace Yugi_Poc_GameShop
                     InstalledGames = installedGames
                 };
             }
+            else if (overrideDataPath)
+            {
+                MessageBox.Show("Wrong Trilogy Data path chosen. Restart the software", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                pathsFile = new PathsFile();
+                SavePaths(pathsFile);
+                Environment.Exit(0);
+            }
+
+            var path = installedJ ? pathsFile.InstallDirJ : installedK ? pathsFile.InstallDirK : pathsFile.InstallDirY;
+            var filePath = Path.Combine(path, "data.dat");
+            var files = GetFileInfos(filePath).Where(x => x.FileName.StartsWith("bin#") || x.FileName.StartsWith("card")).ToList();
+            UnpackFiles(files, filePath, dataPath);
+
+            return new Paths
+            {
+                CommonDir = pathsFile.CommonDir,
+                LibraryDir = dataPath,
+                InstalledGames = installedGames
+            };
+
         }
 
         static void UnpackFiles(List<FileData> files, string filePath, string outDirectory)
@@ -279,13 +314,35 @@ namespace Yugi_Poc_GameShop
             }
         }
 
-        public static string SelectFolder(string game, bool dataDat = true)
+        public static string SelectFolder(string game, SelectFolderOption selectFolderOption)
         {
+            string title = null;
+            string filter = null;
+            string fileName = null;
+            switch (selectFolderOption)
+            {
+                case SelectFolderOption.Common:
+                    title = "Select system.dat for game saves";
+                    filter = "System Data (system.dat)|system.dat";
+                    fileName = "system.dat";
+                    break;
+                case SelectFolderOption.GameData:
+                    title = $"Select data.dat for {game}";
+                    filter = "Game Data (data.dat)|data.dat";
+                    fileName = "data.dat";
+                    break;
+                case SelectFolderOption.DataFolder:
+                    title = $"Select data folder";
+                    filter = "Game Data (card_id.bin)|card_id.bin";
+                    fileName = "card_id.bin";
+                    break;
+            }
             using (OpenFileDialog dialog = new OpenFileDialog())
             {
-                dialog.Title = dataDat ? $"Select data.dat for {game}" : "Select system.dat for game saves";
-                dialog.Filter = dataDat ? "Game Data (data.dat)|data.dat" : "System Data (system.dat)|system.dat";
-                dialog.FileName = dataDat ? "data.dat" : "system.dat";
+                dialog.ShowHelp = true;
+                dialog.Title = title;
+                dialog.Filter = filter;
+                dialog.FileName = fileName;
                 dialog.CheckFileExists = true;
                 dialog.CheckPathExists = true;
                 dialog.Multiselect = false;
@@ -299,6 +356,13 @@ namespace Yugi_Poc_GameShop
             }
 
             return null;
+        }
+
+        public enum SelectFolderOption
+        {
+            Common,
+            GameData,
+            DataFolder
         }
     }
 }
